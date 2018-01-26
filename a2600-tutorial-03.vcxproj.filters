@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Data Files">
+      <UniqueIdentifier>{2E8877F8-C8E9-4FAD-A1E0-3A80BB25F3BD}</UniqueIdentifier>
+      <Extensions>bmp</Extensions>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{9116549A-1870-49DC-A490-6E5DA3601321}</UniqueIdentifier>
+      <Extensions>bat</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{F108080F-84DB-454F-ACED-E1C451D05584}</UniqueIdentifier>
+      <Extensions>k65</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="!run.bat">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="_defs.k65">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="files.lst" />
+    <None Include="main.k65">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="sprites.bmp">
+      <Filter>Data Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
