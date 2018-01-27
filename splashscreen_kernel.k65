@@ -1,0 +1,66 @@
+[ NOP_WAIT_AMOUNT=10, IMAGE_HEIGHT=220 ]
+
+data splash1_pf0_0 { align 256	image "gfx/splash1" 3 0 8< 220v }
+data splash1_pf1_0 { align 256	image "gfx/splash1" 4  0 8> 220v }
+data splash1_pf2_0 { align 256	image "gfx/splash1" 19 0 8< 220v }
+data splash1_pf0_1 { align 256	image "gfx/splash1" 23 0 8< 220v }
+data splash1_pf1_1 { align 256	image "gfx/splash1" 24 0 8> 220v }
+data splash1_pf2_1 { align 256	image "gfx/splash1" 39 0 8< 220v }
+
+data splash2_pf0_0 { align 256	image "gfx/splash2" 3 0 8< 220v }
+data splash2_pf1_0 { align 256	image "gfx/splash2" 4  0 8> 220v }
+data splash2_pf2_0 { align 256	image "gfx/splash2" 19 0 8< 220v }
+data splash2_pf0_1 { align 256	image "gfx/splash2" 23 0 8< 220v }
+data splash2_pf1_1 { align 256	image "gfx/splash2" 24 0 8> 220v }
+data splash2_pf2_1 { align 256	image "gfx/splash2" 39 0 8< 220v }
+
+inline draw_splash1 {
+	y=0 {
+		wsync
+		pf0=a=splash1_pf0_0,y
+		pf1=a=splash1_pf1_0,y
+		pf2=a=splash1_pf2_0,y
+		*[NOP_WAIT_AMOUNT]
+		pf0=a=splash1_pf0_1,y
+		pf1=a=splash1_pf1_1,y
+		pf2=a=splash1_pf2_1,y
+		y++
+		y?[IMAGE_HEIGHT]
+	}<
+	pf0=pf1=pf2=a=0
+}
+
+inline draw_splash2 {
+	y=0 {
+		wsync
+		pf0=a=splash2_pf0_0,y
+		pf1=a=splash2_pf1_0,y
+		pf2=a=splash2_pf2_0,y
+		*[NOP_WAIT_AMOUNT]
+		pf0=a=splash2_pf0_1,y
+		pf1=a=splash2_pf1_1,y
+		pf2=a=splash2_pf2_1,y
+		y++
+		y?[IMAGE_HEIGHT]
+	}<
+	pf0=pf1=pf2=a=0
+	
+}
+
+func splash_screen_kernel {
+	cbg=a=0x00
+	cpf=a=0x0f
+	{
+	sync1
+		a=inpt4 >=0 { goto .endfunc }
+		a=inpt5 >=0 { goto .endfunc }
+	sync2
+	sync3
+		a=tmp1
+		== { draw_splash1 }
+		else { draw_splash2 }
+		a=x a+2	x=a
+		>= { a=tmp1 a^0x01 tmp1=a x=0}
+	} always	// loop forever
+	.endfunc:
+}

@@ -9,6 +9,21 @@ data TestSine2 {
 	for x=0..255 eval [ p = x/256*7, (sin(p*2*pi)*0.5+0.5)*156+1 ]
 }
 
+data sprite {
+	align 256
+	// image <file> <x0> <y0> <byte> <repeat> - gather bits from image
+	//	<file>		- file name without ".bmp" extension
+	//	<x0> <y0>	- first pixel to scan
+	//	<byte>		- scanning mode for each single byte starting with MSB (count+direction)
+	//	<repeat>	- scanning mode for consecutive bytes (count+direction)
+
+	image "gfx/sprites"  0 16 8> 16v inv	// start at pixel (0,16), each byte is 8 bits to the right, repeat 16 times going up
+	image "gfx/sprites" 10 16 8> 16v inv	// do the same from (10,16)
+	image "gfx/sprites" 20 16 8> 16v inv	// and again starting at (20,16)
+	image "gfx/sprites" 30 16 8> 16v inv	// do the same from (30,16)
+	image "gfx/sprites" 40 16 8> 16v inv	// and again starting at (40,16)
+	image "gfx/sprites" 50 16 8> 16v inv	// and again starting at (50,16)
+}
 
 
 
