@@ -1,15 +1,24 @@
+data striptvp {
+		image "gen/flowtext" 0 0 8> 6v
+	}
 
+data striptvn {
+		image "gen/flowtext" 0 7 8> 6v
+	}
 
 inline kernel_terror1 {
-	wsync cbg=a=0x0F
+	ns0=a=6
+	gp0=a=striptvp
+	wsync cbg=a=0x60
 	x=8 { wsync x-- }!=
 	wsync cbg=a=0
 }
 
 
 inline kernel_terror2 {
-
-	wsync cbg=a=0x0F
+	ns1=a=6
+	gp1=a=striptvn
+	wsync cbg=a=0xB0
 	x=8 { wsync x-- }!=
 	wsync cbg=a=0
 }
