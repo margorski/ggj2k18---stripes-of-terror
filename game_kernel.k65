@@ -136,6 +136,7 @@ func game_kernel {
 		wsync gp0=y=0 c+ hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
 		wsync hmove=a
 		tmp1=a=[MISSILE_COUNT-1]
+		CXCLR=a
 		y=15 {
 			tmp2=a=(ptrA),y y--				// X = player graphics
 			x=tmp1 a=ShotPosA,x	tmp1--		// A = shot position
@@ -147,7 +148,8 @@ func game_kernel {
 			wsync gp0=a=(ptrA),y y--
 			wsync gp0=a=(ptrA),y y--
 		}>=0
-
+		a=CXPPMM <0 { cbg=a=anim ShotPosA+[MISSILE_COUNT-1]=ShotPosA+[MISSILE_COUNT-2]=ShotPosA+[MISSILE_COUNT-3]=ShotPosA+[MISSILE_COUNT-4]=a=0}
+		
 		// KERNEL 3
 		x=[MISSILE_COUNT-4]
 		nocross {
@@ -170,6 +172,7 @@ func game_kernel {
 
 		// KERNEL 2B
 		tmp1=a=3
+		CXCLR=a
 		y=0 {
 			tmp2=a=(ptrB),y y++				// X = player graphics
 			x=tmp1 a=ShotPosB,x	tmp1--		// A = shot position
@@ -182,6 +185,7 @@ func game_kernel {
 			wsync gp1=a=(ptrB),y y++
 			y?16
 		}<
+		a=CXPPMM <0 { cbg=a=anim ShotPosB=ShotPosB+1=ShotPosB+2=ShotPosB+3=a=0}
 		a=0
 		gp0=gp1=a
 
