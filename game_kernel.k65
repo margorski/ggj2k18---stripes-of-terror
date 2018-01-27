@@ -94,8 +94,10 @@ func game_kernel {
 					a|0xE0
 				}
 				ShotVelB_W+[MISSILE_COUNT-1]=tmp1=a
-				a<< c- a+tmp1 c- a+P1X					// Acc = P1X + 3*tmp1
-				ShotPosB+[MISSILE_COUNT-1]=a
+				a<< c- a+tmp1
+				c- a+P1X					// Acc = P1X + tmp1
+				y=a a>>> a^tmp1 <0{ y=0 }	// if overflow - don't shoot
+				ShotPosB+[MISSILE_COUNT-1]=y
 			}
 			a=inpt5 >=0 {
 				// Compute shot position/velocity
@@ -106,8 +108,10 @@ func game_kernel {
 					a|0xE0
 				}
 				ShotVelA_W=tmp1=a
-				a<< c- a+tmp1 c- a+P2X					// Acc = P2X + 3*tmp1
-				ShotPosA=a
+				a<< c- a+tmp1
+				c- a+P2X					// Acc = P2X + tmp1
+				y=a a>>> a^tmp1 <0{ y=0 }	// if overflow - don't shoot
+				ShotPosA=y
 			}
 		} 
 		else { 
