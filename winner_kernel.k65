@@ -1,0 +1,63 @@
+[ NOP_WAIT_AMOUNT=10, IMAGE_HEIGHT=220 ]
+
+data tvn_winner_pf0_0 { align 256	image "gfx/splash1" 3 0 8< 220v }
+data tvn_winner_pf1_0 { align 256	image "gfx/splash1" 4  0 8> 220v }
+data tvn_winner_pf2_0 { align 256	image "gfx/splash1" 19 0 8< 220v }
+data tvn_winner_pf0_1 { align 256	image "gfx/splash1" 23 0 8< 220v }
+data tvn_winner_pf1_1 { align 256	image "gfx/splash1" 24 0 8> 220v }
+data tvn_winner_pf2_1 { align 256	image "gfx/splash1" 39 0 8< 220v }
+
+data tvp_winner_pf0_0 { align 256	image "gfx/splash2" 3 0 8< 220v }
+data tvp_winner_pf1_0 { align 256	image "gfx/splash2" 4  0 8> 220v }
+data tvp_winner_pf2_0 { align 256	image "gfx/splash2" 19 0 8< 220v }
+data tvp_winner_pf0_1 { align 256	image "gfx/splash2" 23 0 8< 220v }
+data tvp_winner_pf1_1 { align 256	image "gfx/splash2" 24 0 8> 220v }
+data tvp_winner_pf2_1 { align 256	image "gfx/splash2" 39 0 8< 220v }
+
+inline draw_tvn_winner {
+	y=0 {
+		wsync
+		pf0=a=tvn_winner_pf0_0,y
+		pf1=a=tvn_winner_pf1_0,y
+		pf2=a=tvn_winner_pf2_0,y
+		*[NOP_WAIT_AMOUNT]
+		pf0=a=tvn_winner_pf0_1,y
+		pf1=a=tvn_winner_pf1_1,y
+		pf2=a=tvn_winner_pf2_1,y
+		y++
+		y?[IMAGE_HEIGHT]
+	}<
+	pf0=pf1=pf2=a=0
+}
+
+inline draw_tvp_winner {
+	y=0 {
+		wsync
+		pf0=a=tvp_winner_pf0_0,y
+		pf1=a=tvp_winner_pf1_0,y
+		pf2=a=tvp_winner_pf2_0,y
+		*[NOP_WAIT_AMOUNT]
+		pf0=a=tvp_winner_pf0_1,y
+		pf1=a=tvp_winner_pf1_1,y
+		pf2=a=tvp_winner_pf2_1,y
+		y++
+		y?[IMAGE_HEIGHT]
+	}<
+	pf0=pf1=pf2=a=0
+	
+}
+
+func winner_kernel {
+	cbg=a=0x00
+	cpf=a=0x0f
+	{
+	sync1
+		a=inpt4 >=0 { goto .endfunc  }
+		a=inpt5 >=0 { goto .endfunc  }
+	sync2
+	sync3
+	draw_tvn_winner
+
+	} always	// loop forever
+	.endfunc:
+}

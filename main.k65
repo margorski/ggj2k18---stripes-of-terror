@@ -25,6 +25,7 @@ main {
 	//	wsync
 	//	cbg=a=0
 	//} always
+	far winner_kernel
 	far splash_screen_kernel
 	game_kernel
 }
