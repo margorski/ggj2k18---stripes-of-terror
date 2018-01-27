@@ -37,5 +37,8 @@
     <None Include="kernel2_func.k65">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="terrorline_kernels.k65">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

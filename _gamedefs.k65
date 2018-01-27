@@ -3,7 +3,7 @@
 // === RAM Map ===
 //
 //			x0		x1		x2		x3		x4		x5		x6		x7		x8		x9		xA		xB		xC		xD		xE		xF
-//	8x		anim	P1X		P1Frame	P2X		P2Frame	-		-		-		-		-		-		-		-		-		-		-
+//	8x		anim	P1X		P1Frame	P2X		P2Frame	ptrA	ptrA	ptrB	ptrB	tmp1	tmp2	-		-		-		-		-
 //	9x		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Ax		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Bx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
@@ -17,6 +17,10 @@
 
 // RAM variables
 var anim=0x80, P1X, P1Frame, P2X, P2Frame;
+var ptrA[2];
+var ptrB[2];
+var	tmp1;
+var	tmp2;
 
 var ShotPosA[48] = 0x90;
 var ShotPosB[48];
