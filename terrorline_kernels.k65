@@ -1,0 +1,15 @@
+
+
+inline kernel_terror1 {
+	wsync cbg=a=0x0F
+	x=8 { wsync x-- }!=
+	wsync cbg=a=0
+}
+
+
+inline kernel_terror2 {
+
+	wsync cbg=a=0x0F
+	x=8 { wsync x-- }!=
+	wsync cbg=a=0
+}

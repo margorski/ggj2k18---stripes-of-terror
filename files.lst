@@ -2,6 +2,7 @@
 
 _defs.k65				core
 _gamedefs.k65			core
+terrorline_kernels.k65	core
 game_kernel.k65			core
 main.k65				core
 

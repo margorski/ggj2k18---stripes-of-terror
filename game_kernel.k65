@@ -48,34 +48,31 @@ func game_kernel {
 		cp1=a=0x4F
 
 		// KERNEL 1A
-		wsync cbg=a=0x0F
-		x=8 { wsync x-- }!=
-		wsync cbg=a=0
+		kernel_terror1
 
 
 		// KERNEL 2A
 		a=P1X
 		wsync gp0=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
 		wsync hmove=a
-		y=0 {
+		y=15 {
 			wsync gp0=a=(ptrA),y
-			y++
-			y?16
-		}<
+			y--
+		}>=0
 		a=0
 		gp0=gp1=a
 
 
 		// KERNEL 3
 		wsync
-		x=42
+		x=32
 		nocross {
 		.loop:
 			a=ShotPosA-1,x
 			wsync gp1=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
 			wsync hmove=a a=ShotPosA-1,x !={ a=0x08 } gp1=a
 	
-			a=ShotPosB-1,x
+			a=ShotPosB+[4-1],x
 			wsync gp0=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
 			wsync hmove=a a=ShotPosB-1,x !={ a=0x08 } gp0=a
 			x--
@@ -89,18 +86,24 @@ func game_kernel {
 		gp0=a=0
 
 		// KERNEL 2B
+		tmp1=a=3
 		y=0 {
-			wsync gp1=a=(ptrB),y
-			y++
+			tmp2=a=(ptrB),y y++				// X = player graphics
+			x=tmp1 a=ShotPosB,x tmp1--		// A = shot position
+			x=tmp2
+
+			hmclr=a
+			wsync gp1=x *2 gp0=x=0 { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
+			wsync hmove=a a=ShotPosB,y !={ a=0x08 } gp0=a			gp1=a=(ptrB),y y++
+			wsync gp1=a=(ptrB),y y++
+			wsync gp1=a=(ptrB),y y++
 			y?16
 		}<
 		a=0
 		gp0=gp1=a
 
 		// KERNEL 1B
-		wsync cbg=a=0x0F
-		x=8 { wsync x-- }!=
-		wsync cbg=a=0
+		kernel_terror2
 
 
 	} always	// loop forever

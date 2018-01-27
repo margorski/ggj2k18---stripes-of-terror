@@ -30,6 +30,7 @@
   <ItemGroup>
     <None Include="!run.bat" />
     <None Include="game_kernel.k65" />
+    <None Include="terrorline_kernels.k65" />
     <None Include="_defs.k65" />
     <None Include="files.lst" />
     <None Include="main.k65" />
