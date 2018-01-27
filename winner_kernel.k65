@@ -25,7 +25,7 @@ inline draw_tvn_winner {
 		pf1=a=tvn_winner_pf1_1,y
 		pf2=a=tvn_winner_pf2_1,y
 		y++
-		y?[IMAGE_HEIGHT]
+		y?200
 	}<
 	pf0=pf1=pf2=a=0
 }
@@ -41,7 +41,7 @@ inline draw_tvp_winner {
 		pf1=a=tvp_winner_pf1_1,y
 		pf2=a=tvp_winner_pf2_1,y
 		y++
-		y?[IMAGE_HEIGHT]
+		y?200
 	}<
 	pf0=pf1=pf2=a=0
 	
@@ -52,12 +52,20 @@ func winner_kernel {
 	cpf=a=0x0f
 	{
 	sync1
+		a=anim a&1 a^1
+		anim=a
+		infoscroll=a=0
 		a=inpt4 >=0 { goto .endfunc  }
 		a=inpt5 >=0 { goto .endfunc  }
 	sync2
-	sync3
-	draw_tvn_winner
 
+	sync3
+	cpf=a=15
+	ctpf=a=0
+	draw_tvn_winner
+	x=1
+	far kernel_terror_setup
+	far kernel_terror
 	} always	// loop forever
 	.endfunc:
 }
