@@ -29,9 +29,20 @@ func game_kernel {
 		}<
 
 		// shoot
-		y=anim 
-		ShotPosA=a=TestSine,y
-		ShotPosB+[MISSILE_COUNT-1]=a=TestSine2,y
+		a=swchb a&0x08
+		== {
+			ShotPosA=a=0
+			ShotPosB+[MISSILE_COUNT-1]=a=0
+			a=inpt4
+			>=0 { ShotPosB+[MISSILE_COUNT-1]=a=P1X }
+			a=inpt5
+			>=0 { ShotPosA=a=P2X }
+		} 
+		else { 
+			y=anim	
+			ShotPosA=a=TestSine,y
+			ShotPosB+[MISSILE_COUNT-1]=a=TestSine2,y
+		}
 		
 		player1_input
 		player2_input
