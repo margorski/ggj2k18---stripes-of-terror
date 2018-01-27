@@ -1,0 +1,18 @@
+func city {
+	
+	ctpf=a=0x1
+	cpfh=a=0x08
+	pf0=a=0b11110000
+	pf1=a=0b11110000
+	pf2=a=0b11110000
+	wsync
+	wsync
+	wsync
+	wsync
+	wsync
+	wsync
+	//ctpf=a=0
+	pf0=a=0
+	pf1=a=0
+	pf2=a=0
+}
