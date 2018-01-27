@@ -1,5 +1,4 @@
 
-
 function ppm_load(IMAGE,path,	line,len,args,step,iw,ih,xp,yp,ch,i,col)
 {
 	# steps:
@@ -152,30 +151,32 @@ BEGIN {
 	FONT[" ","x"] = -100
 	FONT[" ","w"] = 1;
 
-	ppm_create(IMAGE,1200,12);
+	ppm_create(IMAGE,42*8*5,12);
+	XPOS = 96;
 	YPOS = 0;
 }
 
-{
-	FONT[" ","w"] = 1;
+$1!="" && $1!="#" {
+	FONT[" ","w"] = 2;
 	txt = $0
-	center = 0
-	if(txt~/^\//)
+	FINAL=0
+	if(txt~/!/)
 	{
-		txt = substr(txt,2);
-		center = 1;
+		txt=substr(txt,2);
+		FINAL=1
+		XPOS=176*8
 	}
 	len = font_text_len(FONT,txt);
-
-	if(len>48)
-		FONT[" ","w"] = 0;
-
-	font_puttext(FONT,IMAGE,0,YPOS,txt);
-
-#	if( 11+len<48 && !center )
-#		font_puttext(FONT,IMAGE,11,YPOS,txt);
-#	else
-#		font_puttext(FONT,IMAGE,int((48-len)/2),YPOS,txt);
+	
+	font_puttext(FONT,IMAGE,XPOS,YPOS,txt);
+	if(FINAL)
+	{
+		font_puttext(FONT,IMAGE,XPOS+192,YPOS,txt);
+	}
+	XPOS += len + 15;
+}
+$0~/#/{
+	XPOS = 96;
 	YPOS += 6;
 }
 

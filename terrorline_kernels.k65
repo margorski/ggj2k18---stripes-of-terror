@@ -4,15 +4,31 @@ image FlowText = "gen/flowtext.bmp";
 // 42 instances of 8x6 tiles per bank
 data striptvp0 { address 0xF100		image "gen/flowtext" [42*8*0]  5 8> 6^		tiles 8 0 41		}
 data striptvp1 { address 0xF200		image "gen/flowtext" [42*8*1]  5 8> 6^		tiles 8 0 41		}
-data striptvn0 { address 0xF300		image "gen/flowtext" [42*8*0] 11 8> 6^		tiles 8 0 41		}
-data striptvn1 { address 0xF400		image "gen/flowtext" [42*8*1] 11 8> 6^		tiles 8 0 41		}
+data striptvp2 { address 0xF300		image "gen/flowtext" [42*8*2]  5 8> 6^		tiles 8 0 41		}
+data striptvp3 { address 0xF400		image "gen/flowtext" [42*8*3]  5 8> 6^		tiles 8 0 41		}
+data striptvp4 { address 0xF500		image "gen/flowtext" [42*8*4]  5 8> 6^		tiles 8 0 41		}
+data striptvn0 { address 0xF600		image "gen/flowtext" [42*8*0] 11 8> 6^		tiles 8 0 41		}
+data striptvn1 { address 0xF700		image "gen/flowtext" [42*8*1] 11 8> 6^		tiles 8 0 41		}
+data striptvn2 { address 0xF800		image "gen/flowtext" [42*8*2] 11 8> 6^		tiles 8 0 41		}
+data striptvn3 { address 0xF900		image "gen/flowtext" [42*8*3] 11 8> 6^		tiles 8 0 41		}
+data striptvn4 { address 0xFA00		image "gen/flowtext" [42*8*4] 11 8> 6^		tiles 8 0 41		}
 
+[ FAST_SCROLL = 0 ]
+
+
+bank core;
 
 data strip_lock {
 	&>striptvp0
 	&>striptvp1
+	&>striptvp2
+	&>striptvp3
+	&>striptvp4
 	&>striptvn0
 	&>striptvn1
+	&>striptvn2
+	&>striptvn3
+	&>striptvn4
 }
 
 
@@ -27,12 +43,36 @@ inline skip_tiles_2 {
 .end:
 }
 
-
+#if FAST_SCROLL
 func kernel_terror_animate {
-	a=anim a&0x1F =={
-		infoscroll++
+	a=anim a&0x07 =={
+		x=infoscroll x++ x?165 >={ x=0 } infoscroll=x
 	}
 }
+func kernel_terror_animate_win {
+	a=anim a&0x07 =={
+		x=infoscroll x++ x?200>={ x=176 } infoscroll=x
+	}
+}
+inline _setup_terror_scroll {
+	a=anim a<< a<< a<< a<< a&0x70 c- a+0xC0 y=a
+}
+#else
+func kernel_terror_animate {
+	a=anim a&0x0F =={
+		x=infoscroll x++ x?165 >={ x=0 } infoscroll=x
+	}
+}
+func kernel_terror_animate_win {
+	a=anim a&0x0F =={
+		x=infoscroll x++ x?200>={ x=176 } infoscroll=x
+	}
+}
+inline _setup_terror_scroll {
+	a=anim a<< a<< a<< a&0x70 c- a+0xC0 y=a
+}
+#endif
+
 
 //	  0.. 41			0		X*6
 //	 42.. 83			1		(X-42)*6
@@ -41,6 +81,8 @@ func kernel_terror_animate {
 //	168..209			4		(X-168)*6
 //	210..251			5		(X-210)*6
 
+//	INFOSCROLL	IIIIIIII
+//	ANIM		---AAA-S
 
 func kernel_terror_setup {
 	a=strip_lock		// lock data sections
@@ -77,8 +119,7 @@ func kernel_terror_setup {
 
 	hmclr=a=0
 	gp0=gp1=a
-	a=anim a<< a<< a&0x70 c- a+0xC0 y=a
-
+	_setup_terror_scroll
 
 	wsync
 	*4
@@ -99,6 +140,8 @@ func kernel_terror_setup {
 //
 
 
+
+bank terror;
 
 func kernel_terror {
 

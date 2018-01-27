@@ -6,7 +6,7 @@ _gamedefs.k65			core
 player.k65				core
 winner_kernel.k65		win_splash
 splashscreen_kernel.k65	splash
-terrorline_kernels.k65	core
+terrorline_kernels.k65	terror
 game_kernel.k65			core
 main.k65				core
 
