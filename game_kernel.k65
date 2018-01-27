@@ -16,38 +16,89 @@ func game_kernel {
 	{
 	sync1
 		anim++
+		player1_input
+		player2_input
 
-		// move
+		// move A
 		x=[MISSILE_COUNT-1] {
-			ShotPosA,x=a=ShotPosA-1,x
+			ShotVelA_W,x=a=ShotVelA_R-1,x
+			y=a=ShotPosA-1,x
+			!={
+				c- a+ShotVelA_R,x
+				y=a
+				a>>>			// 0xFF + 1		->	1 00000000		BAD
+								// 0x00 + 1		->	0 00000001
+								// 0x00 + 0xFF	->	0 11111111		BAD
+								// 0xFF + 0xFF	->	1 11111110
+				a^ShotVelA_R,x	// MSB	->	0:good	1:bad
+				<0{ y=0 }
+			}
+			ShotPosA,x=y
 			x--
 		}!=
+
+	sync2
+
+		// move B
 		x=0{
-			ShotPosB,x=a=ShotPosB+1,x
+			ShotVelB_W,x=a=ShotVelB_R+1,x
+			y=a=ShotPosB+1,x
+			!={
+				c- a+ShotVelB_R,x
+				y=a
+				a>>>			// 0xFF + 1		->	1 00000000		BAD
+								// 0x00 + 1		->	0 00000001
+								// 0x00 + 0xFF	->	0 11111111		BAD
+								// 0xFF + 0xFF	->	1 11111110
+				a^ShotVelB_R,x	// MSB	->	0:good	1:bad
+				<0{ y=0 }
+			}
+			ShotPosB,x=y
 			x++
 			x?[MISSILE_COUNT-1]
 		}<
 
 		// shoot
 		a=swchb a&0x08
-		== {
-			ShotPosA=a=0
-			ShotPosB+[MISSILE_COUNT-1]=a=0
-			a=inpt4
-			>=0 { ShotPosB+[MISSILE_COUNT-1]=a=P1X }
-			a=inpt5
-			>=0 { ShotPosA=a=P2X }
+		!= {
+			a=0
+			ShotPosA=a
+			ShotPosB+[MISSILE_COUNT-1]=a
+			ShotVelA_W=a
+			ShotVelB_W+[MISSILE_COUNT-1]=a
+
+			a=inpt4 >=0 {
+				// Compute shot position/velocity
+				a=P1Frame c+ a-[FRAME_CLAMP/2] >=0{
+					a>> a>> a>>
+				}else{
+					a>> a>> a>>
+					a|0xE0
+				}
+				ShotVelB_W+[MISSILE_COUNT-1]=tmp1=a
+				a<< c- a+tmp1 c- a+P1X					// Acc = P1X + 3*tmp1
+				ShotPosB+[MISSILE_COUNT-1]=a
+			}
+			a=inpt5 >=0 {
+				// Compute shot position/velocity
+				a=P2Frame c+ a-[FRAME_CLAMP/2] >=0{
+					a>> a>> a>>
+				}else{
+					a>> a>> a>>
+					a|0xE0
+				}
+				ShotVelA_W=tmp1=a
+				a<< c- a+tmp1 c- a+P2X					// Acc = P2X + 3*tmp1
+				ShotPosA=a
+			}
 		} 
 		else { 
 			y=anim	
 			ShotPosA=a=TestSine,y
 			ShotPosB+[MISSILE_COUNT-1]=a=TestSine2,y
 		}
-		
-		player1_input
-		player2_input
 
-	sync2
+
 	
 		a=P1Frame a&0xF0
 		ptrA=a

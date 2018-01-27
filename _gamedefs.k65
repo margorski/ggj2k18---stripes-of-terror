@@ -36,3 +36,14 @@ var	tmp2;
 
 var ShotPosA[MISSILE_COUNT] = 0x90;
 var ShotPosB[MISSILE_COUNT];
+
+
+// SuperChip variables
+[ SCRAM_WRITE	= 0x1000 ]
+[ SCRAM_READ	= 0x1080 ]
+
+var ShotVelA_W[MISSILE_COUNT] = [SCRAM_WRITE];
+var ShotVelB_W[MISSILE_COUNT];
+
+var ShotVelA_R[MISSILE_COUNT] = [SCRAM_READ];
+var ShotVelB_R[MISSILE_COUNT];
