@@ -1,5 +1,6 @@
 // entry point block is declared with "main"
 main {
+	{
 	init
 	P1X=a=1
 	P2X=a=254
@@ -26,6 +27,8 @@ main {
 	//	wsync
 	//	cbg=a=0
 	//} always
-	far splash_screen_kernel
-	game_kernel
+	far winner_kernel
+		far splash_screen_kernel
+		game_kernel
+	} always
 }

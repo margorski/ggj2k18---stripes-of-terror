@@ -107,3 +107,5 @@ var swchb=0x282;				// xx-- x-xx   Port B
 								//      ^		- Color Switch          (0=B/W, 1=Color) (Always 0 for SECAM)
 								//  ^			- P0 Difficulty Switch  (0=Beginner (B), 1=Advanced (A))
 								// ^			- P1 Difficulty Switch  (0=Beginner (B), 1=Advanced (A))
+
+var cxppmm=0x37					// xx-- ----    - Collisions (Bit7 - Player 1 <=> Player 2, Bit 6 - Missile 1 <=> Missile 2)
