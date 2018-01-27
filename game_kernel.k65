@@ -53,7 +53,7 @@ func game_kernel {
 
 		// KERNEL 2A
 		a=P1X
-		wsync gp0=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
+		wsync gp0=y=0 c+ hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
 		wsync hmove=a
 		y=15 {
 			wsync gp0=a=(ptrA),y
@@ -81,7 +81,7 @@ func game_kernel {
 		.endloop:
 		}
 		a=P2X
-		wsync gp1=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
+		wsync gp1=y=0 c+ hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
 		wsync hmove=a
 		gp0=a=0
 
