@@ -34,6 +34,7 @@ func game_kernel {
 		anim++
 		player1_input
 		player2_input
+		kernel_terror_animate
 
 		// move A
 		x=[MISSILE_COUNT-1] {
@@ -115,20 +116,23 @@ func game_kernel {
 		}
 
 
+		x=0
+		kernel_terror_setup
+
+	sync3
 	
+		// KERNEL 1A
+		kernel_terror
+		cp0=a=0x3F
+		cp1=a=0x4F
+
 		a=P1Frame a&0xF0
 		ptrA=a
 		ptrA+1=a=&>sprite
 		a=P2Frame a&0xF0
 		ptrB=a
 		ptrB+1=a=&>sprite
-	sync3
-	
-		// KERNEL 1A
-		kernel_terror1
-		ns0=ns1=a=0
-		cp0=a=0x3F
-		cp1=a=0x4F
+
 
 		// KERNEL 2A
 		a=P1X
@@ -185,7 +189,9 @@ func game_kernel {
 		gp0=gp1=a
 
 		// KERNEL 1B
-		kernel_terror2
+		x=1
+		kernel_terror_setup
+		kernel_terror
 
 
 	} always	// loop forever

@@ -3,14 +3,14 @@
 // === RAM Map ===
 //
 //			x0		x1		x2		x3		x4		x5		x6		x7		x8		x9		xA		xB		xC		xD		xE		xF
-//	8x		anim	P1X		P1Frame	P2X		P2Frame	ptrA	ptrA	ptrB	ptrB	tmp1	tmp2	-		-		-		-		-
+//	8x		anim	P1X		P1Frame	P2X		P2Frame	ptrA	ptrA	ptrB	ptrB	tmp1/pE	tmp2/pE	ptrC	ptrC	ptrD	ptrD	tmp3
 //	9x		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Ax		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Bx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Cx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Dx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Ex		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
-//	Fx		-		-		-		-		-		-		-		-		STACK	STACK	STACK	STACK	STACK	STACK	STACK	STACK
+//	Fx		ptrF	ptrF	iscroll	-		-		-		-		-		STACK	STACK	STACK	STACK	STACK	STACK	STACK	STACK
 //
 
 
@@ -29,10 +29,16 @@ bank core;
 
 // RAM variables
 var anim=0x80, P1X, P1Frame, P2X, P2Frame;
-var ptrA[2];
-var ptrB[2];
-var	tmp1;
-var	tmp2;
+var ptrA[2] = 0x85;
+var ptrB[2] = 0x87;
+var	tmp1 = 0x89;
+var	tmp2 = 0x8A;
+var	tmp3 = 0x8F;
+var ptrC = 0x8B;
+var ptrD = 0x8D;
+var ptrE = 0x89;		// alias to tmp2:tmp1
+var ptrF = 0xF0;
+var infoscroll = 0xF2;
 
 var ShotPosA[MISSILE_COUNT] = 0x90;
 var ShotPosB[MISSILE_COUNT];

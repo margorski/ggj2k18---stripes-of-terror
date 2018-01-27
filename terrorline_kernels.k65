@@ -1,55 +1,130 @@
-data striptvp {
-	image "gen/flowtext" 0 0 8> 6v
-	image "gen/flowtext" 8 0 8> 6v
-	image "gen/flowtext" 16 0 8> 6v
-	image "gen/flowtext" 24 0 8> 6v
+
+image FlowText = "gen/flowtext.bmp";
+
+// 42 instances of 8x6 tiles per bank
+data striptvp0 { address 0xF100		image "gen/flowtext" [42*8*0]  5 8> 6^		tiles 8 0 41		}
+data striptvp1 { address 0xF200		image "gen/flowtext" [42*8*1]  5 8> 6^		tiles 8 0 41		}
+data striptvn0 { address 0xF300		image "gen/flowtext" [42*8*0] 11 8> 6^		tiles 8 0 41		}
+data striptvn1 { address 0xF400		image "gen/flowtext" [42*8*1] 11 8> 6^		tiles 8 0 41		}
+
+
+data strip_lock {
+	&>striptvp0
+	&>striptvp1
+	&>striptvn0
+	&>striptvn1
 }
 
-data striptvn {
-	image "gen/flowtext" 0 7 8> 6v
+
+inline skip_tiles_1 {
+	c- a+6
+	a?252 >={ a=0 x++ }		// carry set -> end of current page
+}
+
+inline skip_tiles_2 {
+	c- a+12		>={ x++ a=6 goto .end }
+	a?252 >={ a=0 x++ }		// carry set -> end of current page
+.end:
 }
 
 
-inline kernel_terror1 {
+func kernel_terror_animate {
+	a=anim a&0x1F =={
+		infoscroll++
+	}
+}
+
+//	  0.. 41			0		X*6
+//	 42.. 83			1		(X-42)*6
+//	 84..125			2		(X-84)*6
+//	126..167			3		(X-126)*6
+//	168..209			4		(X-168)*6
+//	210..251			5		(X-210)*6
+
+
+func kernel_terror_setup {
+	a=strip_lock		// lock data sections
+	a=anim a&1 y=a		// preload shutter bit
+	x?0 =={
+		x=&>striptvp0
+		cpf=a=0x60
+		a=0x0F
+	}else{
+		x=&>striptvn0
+		cpf=a=0xD0
+		a=0x0F
+	}
+	tmp3=a
+
+	wsync
+
+	a=infoscroll
+	{
+		x++
+		c+ a-42
+	}>=
+	x--	c- a+42				
+	a<< tmp1=a a<< c- a+tmp1		// A = low addr
+
+	y?0 !={ skip_tiles_1 }
+	ptrA=a		ptrA+1=x	skip_tiles_2
+	ptrB=a		ptrB+1=x	skip_tiles_2
+	ptrC=a		ptrC+1=x	skip_tiles_2
+	ptrD=a		ptrD+1=x	skip_tiles_2
+	ptrE=a		ptrE+1=x	skip_tiles_2
+	ptrF=a		ptrF+1=x
+
+
 	hmclr=a=0
 	gp0=gp1=a
-	a=anim a<< a&0x70 c- a+0xD0 y=a
+	a=anim a<< a<< a&0x70 c- a+0xC0 y=a
+
+
 	wsync
-	*6
-	ns0=a=6
-	cp0=a=0x0F
-	cp1=a=0x0F
+	*4
+	ns0=ns1=a=6
+	cp0=a=tmp3				// CP0
+	cp1=a					// CP1
 	a=anim a&1 =={
-		rp0+256=a x=0 rp1=a	hp0=y a=y a+0xF0 hp1=a
+		rp0+256=a *2 rp1=a	hp0=y a=y a+0xF0 hp1=a
 	}else{
-		*3 rp0=a x=0 rp1=a	hp1=y a=y a+0x10 hp0=a
+		*3 rp0=a *2 rp1=a	hp1=y a=y a+0x10 hp0=a
 	}
-	
-	wsync hmove=a cpf=a=15 ctpf=a=1
-	wsync cpf=a=0x60 cbg=a=15
+}
+
+
+//	X	CP0/CP1/CPF			CBG
+//	0		15				0x60
+//	1		0xDC			0
+//
+
+
+
+func kernel_terror {
+
+	wsync hmove=a ctpf=a=1
+	wsync cbg=a=tmp3					// CPF / CBG
 	pf0=a=0b00000000
 	pf1=a=0b00000111
 	pf2=a=0b11111111
-	//gp0=gp1=a=0xBD
-	wsync
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
+	wsync	y=5
+	nocross {
+		wsync
+		gp0=a=(ptrA),y
+		gp1=a=(ptrB),y
+		x=a=(ptrE),y
+		*11
+		gp0=a=(ptrC),y
+		gp1=a=(ptrD),y
+		gp0=x
+		gp1=a=(ptrF),y
+		y--
+	}>=0
 	wsync gp0=gp1=a=0
 	wsync
-	wsync cbg=a=0 pf0=pf1=pf2=a=0
+	wsync
+	cbg=a=0
+	pf0=pf1=pf2=a
 	gp0=gp1=a
-}
-
-
-inline kernel_terror2 {
-	ns1=a=6
-	gp1=a=striptvn
-	wsync cbg=a=0xB0
-	x=8 { wsync x-- }!=
-	wsync cbg=a=0
-	gp0=gp1=a
+	ns0=ns1=a
 }

@@ -5,6 +5,7 @@ main {
 	P2X=a=254
 	P1Frame=a=32
 	P2Frame=a
+	infoscroll=a=30
 
 	//{
 	//sync1
