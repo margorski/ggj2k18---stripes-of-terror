@@ -5,5 +5,5 @@
 /*.user
 /gen/tmp
 *.db
+*.bin
 *.opendb
-/ggj2600.bin
