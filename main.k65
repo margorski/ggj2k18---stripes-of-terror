@@ -16,11 +16,34 @@ data sprite {
 	image sprites 50 16 8> 16v inv	// and again starting at (50,16)
 }
 
+
 // entry point block is declared with "main"
 main {
 	init
+	P1X=a=1
+	P2X=a=254
 	P1Frame=a=32
 	P2Frame=a
+
+	//{
+	//sync1
+	//	x=0 {
+	//		a=x a^0xA5
+	//		SCRamWrite,x=a
+	//		x++
+	//		x?128
+	//	}!=
+	//sync2
+	//sync3
+	//	x=0 {
+	//		wsync
+	//		cbg=a=SCRamRead,x
+	//		x++
+	//		x?128
+	//	}!=
+	//	wsync
+	//	cbg=a=0
+	//} always
 
 	game_kernel
 }

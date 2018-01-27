@@ -40,5 +40,8 @@
     <None Include="terrorline_kernels.k65">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="system_a2600.nut">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

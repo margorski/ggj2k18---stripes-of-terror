@@ -31,6 +31,7 @@
     <None Include="!run.bat" />
     <None Include="game_kernel.k65" />
     <None Include="kernel2_func.k65" />
+    <None Include="system_a2600.nut" />
     <None Include="terrorline_kernels.k65" />
     <None Include="_defs.k65" />
     <None Include="files.lst" />

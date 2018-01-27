@@ -1,4 +1,5 @@
 -system A2600
+-superchip
 
 _defs.k65				core
 _gamedefs.k65			core

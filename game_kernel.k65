@@ -29,9 +29,20 @@ func game_kernel {
 		}<
 
 		// shoot
-		y=anim 
-		ShotPosA=a=TestSine,y
-		ShotPosB+[MISSILE_COUNT-1]=a=TestSine2,y
+		a=swchb a&0x08
+		== {
+			ShotPosA=a=0
+			ShotPosB+[MISSILE_COUNT-1]=a=0
+			a=inpt4
+			>=0 { ShotPosB+[MISSILE_COUNT-1]=a=P1X }
+			a=inpt5
+			>=0 { ShotPosA=a=P2X }
+		} 
+		else { 
+			y=anim	
+			ShotPosA=a=TestSine,y
+			ShotPosB+[MISSILE_COUNT-1]=a=TestSine2,y
+		}
 		
 		player1_input
 		player2_input
@@ -52,24 +63,24 @@ func game_kernel {
 		// KERNEL 1A
 		kernel_terror1
 
-
 		// KERNEL 2A
 		a=P1X
 		wsync gp0=y=0 c+ hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
 		wsync hmove=a
+		tmp1=a=[MISSILE_COUNT-1]
 		y=15 {
-			x=1 a=ShotPosA-1,x
-			wsync gp1=x=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
-			wsync hmove=a a=ShotPosA-1,x !={ a=0x08 } gp1=a		gp0=a=(ptrA),y y--
+			tmp2=a=(ptrA),y y--				// X = player graphics
+			x=tmp1 a=ShotPosA,x	tmp1--		// A = shot position
+			x=tmp2
+
+			c+ hmclr=a
+			wsync gp0=x gp1=x=0 x=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
+			wsync hmove=a a=x !={ a=0x08 } gp1=a		gp0=a=(ptrA),y y--
 			wsync gp0=a=(ptrA),y y--
 			wsync gp0=a=(ptrA),y y--
 		}>=0
-		a=0
-		gp0=gp1=a
-
 
 		// KERNEL 3
-		wsync
 		x=[MISSILE_COUNT-4]
 		nocross {
 		.loop:
