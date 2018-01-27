@@ -1,6 +1,8 @@
 -system A2600
 
-_defs.k65			core
-main.k65			core
+_defs.k65				core
+_gamedefs.k65			core
+game_kernel.k65			core
+main.k65				core
 
 -o ggj2600.bin

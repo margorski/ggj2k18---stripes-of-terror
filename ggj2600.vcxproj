@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -29,9 +29,11 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemGroup>
     <None Include="!run.bat" />
+    <None Include="game_kernel.k65" />
     <None Include="_defs.k65" />
     <None Include="files.lst" />
     <None Include="main.k65" />
     <None Include="sprites.bmp" />
+    <None Include="_gamedefs.k65" />
   </ItemGroup>
 </Project>
