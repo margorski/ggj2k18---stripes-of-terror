@@ -29,10 +29,10 @@ func game_kernel {
 		y=anim 
 		ShotPosA=a=TestSine,y
 		ShotPosB+47=a=TestSine2,y
-
-		P1X=a=150
-		P2X=a=100
-
+		
+		player1_input
+		player2_input
+		
 	sync2
 	
 

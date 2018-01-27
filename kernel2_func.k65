@@ -1,0 +1,37 @@
+[ PLAYER_SPEED = 3 ]
+inline player1_input {
+	// LEFT
+	a=swcha a&0x40
+	== { 
+		a=P1X
+		c+ a-PLAYER_SPEED
+		< { a=0 }
+		P1X=a
+	}
+	// RIGHT
+	a=swcha a&0x80
+	== { 
+		a=P1X
+		c- a+PLAYER_SPEED
+		>= { a=0xFF }
+		P1X=a
+	}
+}
+
+inline player2_input {
+	// LEFT
+	a=swcha a&0x4
+	== { 
+		a=P2X
+		c+ a-PLAYER_SPEED
+		< { a=0 }
+		P2X=a
+	}
+	// RIGHT
+	a=swcha a&0x8
+	== { 
+		a=P2X
+		c- a+PLAYER_SPEED
+		>= { a=0xFF }
+		P2X=a
+	}}
