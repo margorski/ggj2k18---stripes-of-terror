@@ -31,6 +31,7 @@ func game_kernel {
 
 	{
 	sync1
+		a=swchb a&0x01== { return }
 		anim++
 		player1_input
 		player2_input
