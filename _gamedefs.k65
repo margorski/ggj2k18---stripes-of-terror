@@ -15,15 +15,18 @@
 
 
 // preallocate all banks
-bank core;		data _Bank0 { 0 }
-bank audio;		data _Bank1 { 0 }
+bank core;				data _Bank0 { 0 }
+bank audio;				data _Bank1 { 0 }
+bank win_splash;		data _Bank2 { 0 }
+bank splash;			data _Bank3 { 0 }
+bank terror;			data _Bank4 { 0 }
 
 bank core;
 
 
 
 
-[ MISSILE_COUNT = 44 ]
+[ MISSILE_COUNT = 45 ]
 
 
 
