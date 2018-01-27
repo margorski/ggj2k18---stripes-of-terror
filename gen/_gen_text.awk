@@ -152,7 +152,7 @@ BEGIN {
 	FONT[" ","x"] = -100
 	FONT[" ","w"] = 1;
 
-	ppm_create(IMAGE,96,256);
+	ppm_create(IMAGE,500,256);
 	YPOS = 0;
 }
 
