@@ -19,6 +19,8 @@ data sprite {
 // entry point block is declared with "main"
 main {
 	init
+	P1X=a=1
+	P2X=a=254
 	P1Frame=a=32
 	P2Frame=a
 
