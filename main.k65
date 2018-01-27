@@ -16,18 +16,6 @@ data sprite {
 	image sprites 50 16 8> 16v inv	// and again starting at (50,16)
 }
 
-data SineX {
-	align 256
-	0
-	for x=0..213 eval [ (sin(x/212*pi*2)*.499+.499)*130 ]
-}
-
-data SineY {
-	align 256
-	0
-	for x=0..255 eval [ (sin(x/256*pi*2)*.499+.499)*180+1 ]
-}
-
 // entry point block is declared with "main"
 main {
 	init
@@ -35,53 +23,4 @@ main {
 	cntY=a=32
 
 	game_kernel
-
-
-	{
-		sync1
-		sync2
-		sync3
-
-		// compute sprite frame and data start
-		a=anim a<< a&0x30	// LDA+ASL+AND - you can write everything in single line, too
-		a?0x30				// CMP
-		=={ a=0x10 }		// if zero/equal (uses BNE)
-		y=a
-
-		// position sprite in X axis
-		x=cntX
-		a=cntX
-		nocross {	// make sure following code doesn't cross page boundary
-			wsync
-			 { a-15 }>=0
-			  a<< a<< a<< a<< a^0x70 // XOR
-			  hp0=a
-			  rp0=a		// sprite position trick
-		}
-		wsync hmove=a
-
-		// ...and in Y axis
-		x=cntY
-		{ wsync x-- }!=		// one-liners rulez ;)
-
-
-		// draw sprite
-		x=16
-		cp0=a=0x0F
-		ns0=a=0		
-		{
-			wsync
-			gp0=a=sprite,y
-			wsync
-			y++
-			x--
-		}!=
-		wsync
-		gp0=a=0
-
-		// animate
-		anim++
-		cntX-- 
-		=={ cntX=a=0x8d }
-	} always	// loop forever
 }
