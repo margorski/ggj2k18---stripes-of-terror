@@ -1,5 +1,5 @@
 
-CONVERT = c:\Progs\ImageMagick\convert.exe
+CONVERT = ..\bin\convert.exe
 
 
 all:	\
