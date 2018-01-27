@@ -113,6 +113,7 @@ func game_kernel {
 
 		// KERNEL 1A
 		kernel_terror1
+		ns0=ns1=a=0
 
 		// KERNEL 2A
 		a=P1X
