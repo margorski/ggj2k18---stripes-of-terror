@@ -32,11 +32,16 @@ func game_kernel {
 
 		P1X=a=150
 		P2X=a=100
+		P1Frame=a=16
+		P2Frame=a=32
 
 	sync2
 	
 
-
+		ptrA=a=P1Frame
+		ptrA+1=a=&>sprite
+		ptrB=a=P2Frame
+		ptrB+1=a=&>sprite
 	sync3
 	
 		cp0=a=0x3F
@@ -52,10 +57,10 @@ func game_kernel {
 		a=P1X
 		wsync gp0=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
 		wsync hmove=a
-		x=0 {
-			wsync gp0=a=sprite,x
-			x++
-			x?16
+		y=0 {
+			wsync gp0=a=(ptrA),y
+			y++
+			y?16
 		}<
 		a=0
 		gp0=gp1=a
@@ -84,10 +89,10 @@ func game_kernel {
 		gp0=a=0
 
 		// KERNEL 2B
-		x=0 {
-			wsync gp1=a=sprite,x
-			x++
-			x?16
+		y=0 {
+			wsync gp1=a=(ptrB),y
+			y++
+			y?16
 		}<
 		a=0
 		gp0=gp1=a
