@@ -1,4 +1,5 @@
 
 all:
 	..\k65-sdk\bin\k65 @files.lst
-	..\k65-sdk\bin\Stella.exe ggj2600.bin
+	_makeprops.bat
+	..\k65-sdk\bin\Stella.exe -propsfile props.cfg ggj2600.bin

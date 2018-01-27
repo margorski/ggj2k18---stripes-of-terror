@@ -43,5 +43,6 @@
     <None Include="system_a2600.nut">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="Makefile" />
   </ItemGroup>
 </Project>

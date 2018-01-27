@@ -8,3 +8,4 @@
 *.bin
 *.opendb
 *.TMP
+/props.cfg
