@@ -19,8 +19,6 @@ data sprite {
 // entry point block is declared with "main"
 main {
 	init
-	cntX=a=1
-	cntY=a=32
 
 	game_kernel
 }
