@@ -1,37 +1,79 @@
-[ PLAYER_SPEED = 3 ]
+[ PLAYER_MOVE_SPEED = 3, PLAYER_ROTATE_SPEED = 3 ] 
+[ NUM_OF_FRAMES = 5, FRAME_CLAMP = 16 * NUM_OF_FRAMES - 1 ]
+
 inline player1_input {
+	// DOWN
+	a = swcha a&0x10
+	== { 
+		a=P1Frame
+		c+ a-PLAYER_ROTATE_SPEED
+		< { a=0 }
+		P1Frame=a
+	}
+
+	// UP
+	a = swcha a&0x20
+	== { 
+		a=P1Frame
+		c- a+PLAYER_ROTATE_SPEED
+		a?FRAME_CLAMP
+		>= { a=FRAME_CLAMP }
+		P1Frame=a
+	}
+
 	// LEFT
-	a=swcha a&0x40
+	a = swcha a&0x40
 	== { 
 		a=P1X
-		c+ a-PLAYER_SPEED
+		c+ a-PLAYER_MOVE_SPEED
 		< { a=0 }
 		P1X=a
 	}
+
 	// RIGHT
-	a=swcha a&0x80
+	a = swcha a&0x80
 	== { 
 		a=P1X
-		c- a+PLAYER_SPEED
+		c- a+PLAYER_MOVE_SPEED
 		>= { a=0xFF }
 		P1X=a
 	}
 }
 
 inline player2_input {
+	// DOWN
+	a = swcha a&0x01
+	== { 
+		a=P2Frame
+		c+ a-PLAYER_ROTATE_SPEED
+		< { a=0 }
+		P2Frame=a
+	}
+
+	// UP
+	a = swcha a&0x02
+	== { 
+		a=P2Frame
+		c- a+PLAYER_ROTATE_SPEED
+		a?FRAME_CLAMP
+		>= { a=FRAME_CLAMP }
+		P2Frame=a
+	}
+
 	// LEFT
-	a=swcha a&0x4
+	a = swcha a&0x04
 	== { 
 		a=P2X
-		c+ a-PLAYER_SPEED
+		c+ a-PLAYER_MOVE_SPEED
 		< { a=0 }
 		P2X=a
 	}
 	// RIGHT
-	a=swcha a&0x8
+	a = swcha a&0x08
 	== { 
 		a=P2X
-		c- a+PLAYER_SPEED
+		c- a+PLAYER_MOVE_SPEED
 		>= { a=0xFF }
 		P2X=a
-	}}
+	}
+}

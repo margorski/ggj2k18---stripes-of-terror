@@ -33,18 +33,16 @@ func game_kernel {
 		ShotPosA=a=TestSine,y
 		ShotPosB+[MISSILE_COUNT-1]=a=TestSine2,y
 		
-		P1Frame=a=16
-		P2Frame=a=32
-
 		player1_input
 		player2_input
 
 	sync2
 	
-
-		ptrA=a=P1Frame
+		a=P1Frame a&0xF0
+		ptrA=a
 		ptrA+1=a=&>sprite
-		ptrB=a=P2Frame
+		a=P2Frame a&0xF0
+		ptrB=a
 		ptrB+1=a=&>sprite
 	sync3
 	
