@@ -8,6 +8,9 @@ data TestSine2 {
 	for x=0..255 eval [ p = x/256*7, (sin(p*2*pi)*0.5+0.5)*156+1 ]
 }
 
+
+
+
 func game_kernel {
 
 	{
@@ -15,20 +18,20 @@ func game_kernel {
 		anim++
 
 		// move
-		x=47 {
+		x=[MISSILE_COUNT-1] {
 			ShotPosA,x=a=ShotPosA-1,x
 			x--
 		}!=
 		x=0{
 			ShotPosB,x=a=ShotPosB+1,x
 			x++
-			x?47
+			x?[MISSILE_COUNT-1]
 		}<
 
 		// shoot
 		y=anim 
 		ShotPosA=a=TestSine,y
-		ShotPosB+47=a=TestSine2,y
+		ShotPosB+[MISSILE_COUNT-1]=a=TestSine2,y
 
 		P1X=a=150
 		P2X=a=100
@@ -56,8 +59,11 @@ func game_kernel {
 		wsync gp0=y=0 c+ hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
 		wsync hmove=a
 		y=15 {
-			wsync gp0=a=(ptrA),y
-			y--
+			x=1 a=ShotPosA-1,x
+			wsync gp1=x=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
+			wsync hmove=a a=ShotPosA-1,x !={ a=0x08 } gp1=a		gp0=a=(ptrA),y y--
+			wsync gp0=a=(ptrA),y y--
+			wsync gp0=a=(ptrA),y y--
 		}>=0
 		a=0
 		gp0=gp1=a
@@ -65,16 +71,16 @@ func game_kernel {
 
 		// KERNEL 3
 		wsync
-		x=32
+		x=[MISSILE_COUNT-4]
 		nocross {
 		.loop:
 			a=ShotPosA-1,x
 			wsync gp1=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
 			wsync hmove=a a=ShotPosA-1,x !={ a=0x08 } gp1=a
 	
-			a=ShotPosB+[4-1],x
+			a=ShotPosB+[4-1],x		// last shot in this kernel:	4-1+1 = 4
 			wsync gp0=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
-			wsync hmove=a a=ShotPosB-1,x !={ a=0x08 } gp0=a
+			wsync hmove=a a=ShotPosB+[4-1],x !={ a=0x08 } gp0=a
 			x--
 			== goto .endloop
 			goto .loop
@@ -83,18 +89,17 @@ func game_kernel {
 		a=P2X
 		wsync gp1=y=0 c+ hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
 		wsync hmove=a
-		gp0=a=0
 
 		// KERNEL 2B
 		tmp1=a=3
 		y=0 {
 			tmp2=a=(ptrB),y y++				// X = player graphics
-			x=tmp1 a=ShotPosB,x tmp1--		// A = shot position
+			x=tmp1 a=ShotPosB,x	tmp1--		// A = shot position
 			x=tmp2
 
-			hmclr=a
-			wsync gp1=x *2 gp0=x=0 { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
-			wsync hmove=a a=ShotPosB,y !={ a=0x08 } gp0=a			gp1=a=(ptrB),y y++
+			c+ hmclr=a
+			wsync gp1=x gp0=x=0 x=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
+			wsync hmove=a a=x !={ a=0x08 } gp0=a			gp1=a=(ptrB),y y++
 			wsync gp1=a=(ptrB),y y++
 			wsync gp1=a=(ptrB),y y++
 			y?16

@@ -14,6 +14,9 @@
 //
 
 
+[ MISSILE_COUNT = 44 ]
+
+
 
 // RAM variables
 var anim=0x80, P1X, P1Frame, P2X, P2Frame;
@@ -22,5 +25,5 @@ var ptrB[2];
 var	tmp1;
 var	tmp2;
 
-var ShotPosA[48] = 0x90;
-var ShotPosB[48];
+var ShotPosA[MISSILE_COUNT] = 0x90;
+var ShotPosB[MISSILE_COUNT];
