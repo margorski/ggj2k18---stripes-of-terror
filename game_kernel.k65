@@ -54,24 +54,24 @@ func game_kernel {
 		// KERNEL 1A
 		kernel_terror1
 
-
 		// KERNEL 2A
 		a=P1X
 		wsync gp0=y=0 c+ hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
 		wsync hmove=a
+		tmp1=a=[MISSILE_COUNT-1]
 		y=15 {
-			x=1 a=ShotPosA-1,x
-			wsync gp1=x=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
-			wsync hmove=a a=ShotPosA-1,x !={ a=0x08 } gp1=a		gp0=a=(ptrA),y y--
+			tmp2=a=(ptrA),y y--				// X = player graphics
+			x=tmp1 a=ShotPosA,x	tmp1--		// A = shot position
+			x=tmp2
+
+			c+ hmclr=a
+			wsync gp0=x gp1=x=0 x=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
+			wsync hmove=a a=x !={ a=0x08 } gp1=a		gp0=a=(ptrA),y y--
 			wsync gp0=a=(ptrA),y y--
 			wsync gp0=a=(ptrA),y y--
 		}>=0
-		a=0
-		gp0=gp1=a
-
 
 		// KERNEL 3
-		wsync
 		x=[MISSILE_COUNT-4]
 		nocross {
 		.loop:
