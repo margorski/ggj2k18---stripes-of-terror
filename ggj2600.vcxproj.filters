@@ -25,16 +25,10 @@
     <None Include="main.k65">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="sprites.bmp">
-      <Filter>Data Files</Filter>
-    </None>
     <None Include="game_kernel.k65">
       <Filter>Source Files</Filter>
     </None>
     <None Include="_gamedefs.k65">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="kernel2_func.k65">
       <Filter>Source Files</Filter>
     </None>
     <None Include="terrorline_kernels.k65">
@@ -43,5 +37,22 @@
     <None Include="system_a2600.nut">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="player.k65">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="splashscreen_kernel.k65">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="gfx\splash2.bmp">
+      <Filter>Data Files</Filter>
+    </Image>
+    <Image Include="gfx\sprites.bmp">
+      <Filter>Data Files</Filter>
+    </Image>
+    <Image Include="gfx\splash1.bmp">
+      <Filter>Data Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
