@@ -12,29 +12,32 @@ data striptvn {
 
 inline kernel_terror1 {
 	hmclr=a=0
-	wsync
 	gp0=gp1=a
+	a=anim a<< a&0x70 c- a+0xD0 y=a
+	wsync
+	*6
 	ns0=a=6
 	cp0=a=0x0F
 	cp1=a=0x0F
 	a=anim a&1 =={
-		rp0+256=a x=0 rp1=a	hp0=a=0x10
+		rp0+256=a x=0 rp1=a	hp0=y a=y a+0xF0 hp1=a
 	}else{
-		*3 rp0=a x=6 rp1=a	hp1=a=0x10 hp0=a=0x20
+		*3 rp0=a x=0 rp1=a	hp1=y a=y a+0x10 hp0=a
 	}
 	
 	wsync hmove=a cpf=a=15 ctpf=a=1
 	wsync cpf=a=0x60 cbg=a=15
 	pf0=a=0b00000000
-	pf1=a=0b00001111
+	pf1=a=0b00000111
 	pf2=a=0b11111111
-	gp0=gp1=a=0
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+12,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+12,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+12,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+12,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+12,x		x++
-	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+12,x		x++
+	//gp0=gp1=a=0xBD
+	wsync
+	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
+	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
+	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
+	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
+	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
+	wsync gp0=a=striptvp+0,x		gp1=a=striptvp+0,x		x++
 	wsync gp0=gp1=a=0
 	wsync
 	wsync cbg=a=0 pf0=pf1=pf2=a=0
