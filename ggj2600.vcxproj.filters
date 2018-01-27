@@ -44,6 +44,12 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="Makefile" />
+    <None Include="kernel2_func.k65">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="winner_kernel.k65">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="gfx\splash2.bmp">

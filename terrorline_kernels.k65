@@ -41,6 +41,8 @@ func kernel_terror_animate {
 //	168..209			4		(X-168)*6
 //	210..251			5		(X-210)*6
 
+//	INFOSCROLL	IIIIIIII
+//	ANIM		---AAA-S
 
 func kernel_terror_setup {
 	a=strip_lock		// lock data sections
