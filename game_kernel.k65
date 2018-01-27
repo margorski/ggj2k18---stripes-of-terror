@@ -108,12 +108,11 @@ func game_kernel {
 		ptrB+1=a=&>sprite
 	sync3
 	
-		cp0=a=0x3F
-		cp1=a=0x4F
-
 		// KERNEL 1A
 		kernel_terror1
 		ns0=ns1=a=0
+		cp0=a=0x3F
+		cp1=a=0x4F
 
 		// KERNEL 2A
 		a=P1X
