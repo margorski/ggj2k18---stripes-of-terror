@@ -67,7 +67,7 @@ data ImmShake {
 func game_kernel {
 	
 	infoscroll=a=0
-	P1X=a=1
+	P1X=a=2
 	P2X=a=0xFC
 	P1Frame=a=44
 	P2Frame=a=44
