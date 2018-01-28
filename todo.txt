@@ -6,6 +6,7 @@
 	- fizyka graczy
 	- animacja graczy (pozycjonowanie anten)
 	- wizualna reakcja na trafienie
+	- dodac "d" do "kropce nad i" bo jest obecnie: "kropce na i"
 
 
 * Done:
