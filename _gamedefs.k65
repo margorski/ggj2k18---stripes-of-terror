@@ -9,7 +9,7 @@
 //	Bx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Cx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Dx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
-//	Ex		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	tmp4
+//	Ex		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	tmp5	tmp4
 //	Fx		ptrF	ptrF	iscroll	-		-		-		-		-		STACK	STACK	STACK	STACK	STACK	STACK	STACK	STACK
 //
 
@@ -37,7 +37,8 @@ var ptrB[2] = 0x87;
 var	tmp1 = 0x89;
 var	tmp2 = 0x8A;
 var	tmp3 = 0x8F;
-var tmp4 = 0xEF
+var tmp4 = 0xEF;
+var tmp5 = 0xEE;
 var ptrC = 0x8B;
 var ptrD = 0x8D;
 var ptrE = 0x89;		// alias to tmp2:tmp1

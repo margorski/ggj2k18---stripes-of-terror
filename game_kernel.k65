@@ -48,8 +48,8 @@ func game_kernel {
 	
 	{
 	sync1
-		a=Player1Energy_R a?176 >= { return }	
-		a=Player2Energy_R a?176 >= { return }
+		a=Player1Energy_R a?176 >= { x=1 return }	
+		a=Player2Energy_R a?176 >= { x=0 return }
 		a=swchb a&0x01 == { return }
 		anim++
 		player1_input

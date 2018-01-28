@@ -7,12 +7,12 @@ data splash1_pf0_1 { align 256	image "gfx/splash1" 23 0 8< 220v }
 data splash1_pf1_1 { align 256	image "gfx/splash1" 24 0 8> 220v }
 data splash1_pf2_1 { align 256	image "gfx/splash1" 39 0 8< 220v }
 
-data splash2_pf0_0 { align 256	image "gfx/splash2" 3 0 8< 220v }
-data splash2_pf1_0 { align 256	image "gfx/splash2" 4  0 8> 220v }
-data splash2_pf2_0 { align 256	image "gfx/splash2" 19 0 8< 220v }
-data splash2_pf0_1 { align 256	image "gfx/splash2" 23 0 8< 220v }
-data splash2_pf1_1 { align 256	image "gfx/splash2" 24 0 8> 220v }
-data splash2_pf2_1 { align 256	image "gfx/splash2" 39 0 8< 220v }
+data splash2_pf0_0 { align 256	image "gfx/splash2b" 3 0 8< 220v }
+data splash2_pf1_0 { align 256	image "gfx/splash2b" 4  0 8> 220v }
+data splash2_pf2_0 { align 256	image "gfx/splash2b" 19 0 8< 220v }
+data splash2_pf0_1 { align 256	image "gfx/splash2b" 23 0 8< 220v }
+data splash2_pf1_1 { align 256	image "gfx/splash2b" 24 0 8> 220v }
+data splash2_pf2_1 { align 256	image "gfx/splash2b" 39 0 8< 220v }
 
 inline draw_splash1 {
 	y=0 {
