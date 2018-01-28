@@ -65,6 +65,7 @@ func info_beeper {
 
 
 func winner_kernel {
+	Player1Energy_W=Player2Energy_W=a=0
 	infoscroll=a=176		// end message
 	cbg=a=0x00
 	cpf=a=0x0f

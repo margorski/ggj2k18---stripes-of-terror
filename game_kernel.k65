@@ -40,7 +40,12 @@ data SkyColors {
 func game_kernel {
 	
 	infoscroll=a=0
-
+	P1X=a=1
+	P2X=a=254
+	P1Frame=a=32
+	P2Frame=a
+	Player1Energy_W=Player2Energy_W=a=0
+	
 	{
 	sync1
 		a=Player1Energy_R a?176 >= { return }	
