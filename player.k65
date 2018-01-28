@@ -1,78 +1,86 @@
 [ PLAYER_MOVE_SPEED = 3, PLAYER_ROTATE_SPEED = 3 ] 
 [ NUM_OF_FRAMES = 5, FRAME_CLAMP = 16 * NUM_OF_FRAMES - 1 ]
-inline player1_input {
-	// DOWN
-	a=swcha a&0x10
-	== { 
-		a=P1Frame
-		c+ a-PLAYER_ROTATE_SPEED
-		< { a=0 }
-		P1Frame=a
+
+
+// LEFT/RIGHT	- with velocity
+//y=0
+//a=swcha a&0x40	=={ y-- }
+//a=swcha a&0x80	=={ y++ }
+//y?0 !={
+//	a=y c- a+P1Vel
+//	>=0{
+//		a?4 >={ a=4 }
+//	}else{
+//		a?[-4] <{ a=[-4] }
+//	}
+//	P1Vel=a
+//
+//}else{
+//	y=P1Vel !={
+//		>=0{ y-- }
+//		else{ y++ }
+//		P1Vel=y
+//	}
+//}
+//a=P1X c- a+P1Vel P1X=a
+
+
+data SwitchDown		{ 0x10 0x01 }
+data SwitchUp		{ 0x20 0x02 }
+data SwitchLeft		{ 0x40 0x04 }
+data SwitchRight	{ 0x80 0x08 }
+
+// Input:
+//		X	- player number	0/1
+func player_input {
+	
+	//
+	// Do not modify X in this function (stores player index used until the end)
+	//
+
+	a=inpt4,x >=0 {
+		// Fire active - move antenna
+
+		// DOWN
+		a=swcha a&SwitchLeft,x
+		== { 
+			a=P1Frame,x
+			c+ a-PLAYER_ROTATE_SPEED
+			< { a=0 }
+			P1Frame,x=a
+		}
+
+		// UP
+		a=swcha a&SwitchRight,x
+		== { 
+			a=P1Frame,x
+			c- a+PLAYER_ROTATE_SPEED
+			a?FRAME_CLAMP
+			>= { a=FRAME_CLAMP }
+			P1Frame,x=a
+		}
+	}
+	else
+	{
+		// No fire - mov player
+
+		// LEFT
+		a=swcha a&SwitchLeft,x
+		== { 
+			a=P1X,x
+			c+ a-PLAYER_MOVE_SPEED
+			< { a=0 }
+			P1X,x=a
+		}
+		// RIGHT
+		a=swcha a&SwitchRight,x
+		== { 
+			a=P1X,x
+			c- a+PLAYER_MOVE_SPEED
+			>= { a=0xFF }
+			P1X,x=a
+		}
 	}
 
-	// UP
-	a=swcha a&0x20
-	== { 
-		a=P1Frame
-		c- a+PLAYER_ROTATE_SPEED
-		a?FRAME_CLAMP
-		>= { a=FRAME_CLAMP }
-		P1Frame=a
-	}
 
-	// LEFT
-	a=swcha a&0x40
-	== { 
-		a=P1X
-		c+ a-PLAYER_MOVE_SPEED
-		< { a=0 }
-		P1X=a
-	}
-
-	// RIGHT
-	a=swcha a&0x80
-	== { 
-		a=P1X
-		c- a+PLAYER_MOVE_SPEED
-		>= { a=0xFF }
-		P1X=a
-	}
-}
-
-inline player2_input {
-	// DOWN
-	a=swcha a&0x01
-	== { 
-		a=P2Frame
-		c+ a-PLAYER_ROTATE_SPEED
-		< { a=0 }
-		P2Frame=a
-	}
-
-	// UP
-	a=swcha a&0x02
-	== { 
-		a=P2Frame
-		c- a+PLAYER_ROTATE_SPEED
-		a?FRAME_CLAMP
-		>= { a=FRAME_CLAMP }
-		P2Frame=a
-	}
-
-	// LEFT
-	a=swcha a&0x04
-	== { 
-		a=P2X
-		c+ a-PLAYER_MOVE_SPEED
-		< { a=0 }
-		P2X=a
-	}
-	// RIGHT
-	a=swcha a&0x08
-	== { 
-		a=P2X
-		c- a+PLAYER_MOVE_SPEED
-		>= { a=0xFF }
-		P2X=a
-	}
 }

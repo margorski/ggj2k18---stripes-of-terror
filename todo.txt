@@ -1,14 +1,19 @@
-
+﻿
 
 * TODO:
 
 	- muzyka
-	- fizyka graczy
 	- animacja graczy (pozycjonowanie anten)
 	- wizualna reakcja na trafienie
 	- dodac "d" do "kropce nad i" bo jest obecnie: "kropce na i"
+	- logika gameplayu
+	- blokada strzelania w ruchu
+	- gadające twarze
 
 
 * Done:
 
+	x fizyka graczy		- nie sprawdza się (za ciężko omijac pociski)
+
+	+ wspólna logika graczy
 	+ gradient na graczu
