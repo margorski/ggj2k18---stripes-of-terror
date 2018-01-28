@@ -48,24 +48,26 @@ inline draw_tvp_winner {
 }
 
 func winner_kernel {
+	infoscroll=a=176		// end message
 	cbg=a=0x00
 	cpf=a=0x0f
 	{
 	sync1
-		a=anim a&1 a^1
-		anim=a
-		infoscroll=a=0
+		anim++
+		far kernel_terror_animate_win
 		a=inpt4 >=0 { goto .endfunc  }
 		a=inpt5 >=0 { goto .endfunc  }
 	sync2
 
 	sync3
-	cpf=a=15
-	ctpf=a=0
-	draw_tvn_winner
-	x=1
-	far kernel_terror_setup
-	far kernel_terror
+		cpf=a=15
+		ctpf=a=0
+		draw_tvn_winner
+		x=1
+		far kernel_terror_setup
+		far kernel_terror
 	} always	// loop forever
 	.endfunc:
+	sync2
+	sync3
 }

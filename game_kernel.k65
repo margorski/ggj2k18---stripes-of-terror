@@ -28,6 +28,8 @@ data sprite {
 
 
 func game_kernel {
+	
+	infoscroll=a=0
 
 	{
 	sync1
