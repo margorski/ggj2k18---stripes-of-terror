@@ -1,4 +1,4 @@
-[ NOP_WAIT_AMOUNT=10, IMAGE_HEIGHT=220 ]
+[ NOP_WAIT_AMOUNT=10, STRIPE_START=183, STRIPE_END=217, IMAGE_HEIGHT=220 ]
 
 data splash1_pf0_0 { align 256	image "gfx/splash1b" 3 0 8< 220v }
 data splash1_pf1_0 { align 256	image "gfx/splash1b" 4  0 8> 220v }
@@ -14,8 +14,9 @@ data splash2_pf0_1 { align 256	image "gfx/splash2b" 23 0 8< 220v }
 data splash2_pf1_1 { align 256	image "gfx/splash2b" 24 0 8> 220v }
 data splash2_pf2_1 { align 256	image "gfx/splash2b" 39 0 8< 220v }
 
-inline draw_splash1 {
-	y=0 {
+// Input: y - start line, tmp2 - end line
+func draw_splash1_part {
+	{
 		wsync
 		pf0=a=splash1_pf0_0,y
 		pf1=a=splash1_pf1_0,y
@@ -25,13 +26,13 @@ inline draw_splash1 {
 		pf1=a=splash1_pf1_1,y
 		pf2=a=splash1_pf2_1,y
 		y++
-		y?[IMAGE_HEIGHT]
+		y?tmp2
 	}<
-	pf0=pf1=pf2=a=0
 }
 
-inline draw_splash2 {
-	y=0 {
+// Input: y - start line, tmp2 - end line
+func draw_splash2_part {
+	{
 		wsync
 		pf0=a=splash2_pf0_0,y
 		pf1=a=splash2_pf1_0,y
@@ -41,15 +42,38 @@ inline draw_splash2 {
 		pf1=a=splash2_pf1_1,y
 		pf2=a=splash2_pf2_1,y
 		y++
-		y?[IMAGE_HEIGHT]
+		y?tmp2
 	}<
 	pf0=pf1=pf2=a=0
-	
+}
+
+inline draw_splash1 {
+	cbg=a=0x00	cpf=a=0x0f
+	y = 0 tmp2=a=STRIPE_START
+	draw_splash1_part
+	cbg=a=0x0f	cpf=a=0xD2
+	y=tmp2 tmp2=a=STRIPE_END
+	draw_splash1_part
+	cbg=a=0x00	cpf=a=0x0f
+	y=tmp2 tmp2=a=IMAGE_HEIGHT
+	draw_splash1_part
+	pf0=pf1=pf2=a=0
+}
+
+inline draw_splash2 {
+	cbg=a=0x00	cpf=a=0x0f
+	y = 0 tmp2=a=STRIPE_START
+	draw_splash2_part
+	cbg=a=0x0f	cpf=a=0x62
+	y=tmp2 tmp2=a=STRIPE_END
+	draw_splash2_part
+	cbg=a=0x00	cpf=a=0x0f
+	y=tmp2 tmp2=a=IMAGE_HEIGHT
+	draw_splash2_part
+	pf0=pf1=pf2=a=0
 }
 
 func splash_screen_kernel {
-	cbg=a=0x00
-	cpf=a=0x0f
 	{
 	sync1
 		a=inpt4 >=0 { return }
