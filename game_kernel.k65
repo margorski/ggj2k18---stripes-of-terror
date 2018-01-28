@@ -25,7 +25,18 @@ data sprite {
 	image "gfx/sprites" 50 16 8> 16v inv	// and again starting at (50,16)
 }
 
-
+data SkyScraper0 { nocross	?	image "gfx/skyscraper"  3 [MISSILE_COUNT-4-1] 8< [MISSILE_COUNT-4]^	}
+data SkyScraper1 { nocross	?	image "gfx/skyscraper"  4 [MISSILE_COUNT-4-1] 8> [MISSILE_COUNT-4]^	}
+data SkyScraper2 { nocross	?	image "gfx/skyscraper" 19 [MISSILE_COUNT-4-1] 8< [MISSILE_COUNT-4]^	}
+data SkyColors {
+	nocross
+	?
+	//for x=0..40 eval [ x|2 ]
+	//0x9f 0x9f 0x9f 0x0c 0xfc 0x3e 0x38 0x46 0x44 0x50 0x60 0x70 0xa0
+	0x9F 0x0F 0x2F 0x48 0x42 0x40 0x60 0x80 0xA0 0xA0 0xC0 0xC0 0xC0 0xD0 0xC0 0xD0 0xD0 0xD0 0xB0 0xD0 0xB0 0xB0 0xB0 0xB0
+	0xD0 0xB0 0xD0 0xD0 0xD0 0xD0 0xD0 0xD0
+	0xD0 0xB0 0xD0 0xD0 0xD0 0xD0 0xD0 0xD0 0xD0
+}
 
 func game_kernel {
 	
@@ -132,6 +143,9 @@ func game_kernel {
 		far kernel_terror
 		cp0=a=0x3F
 		cp1=a=0x4F
+		pf0=pf1=pf2=a=0xFF
+		cpf=a=0
+		cbg=a=0x0
 
 		a=P1Frame a&0xF0
 		ptrA=a
@@ -162,11 +176,16 @@ func game_kernel {
 		
 		// KERNEL 3
 		x=[MISSILE_COUNT-4]
-		nocross {
+		nocross {		//	MISSILE_COUNT-4 .. 1
 		.loop:
-			a=ShotPosA-1,x
-			wsync gp1=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
-			wsync hmove=a a=ShotPosA-1,x !={ a=0x08 } gp1=a
+			a=ShotPosA-1,x 
+			wsync gp1=y=0 y=a hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a a=y
+			wsync hmove=a !={ a=0x08 } gp1=a
+			cbg=a=SkyColors,x
+			pf0=a=SkyScraper0,x
+			pf1=a=SkyScraper1,x
+			pf2=a=SkyScraper2,x
+
 	
 			a=ShotPosB+[4-1],x		// last shot in this kernel:	4-1+1 = 4
 			wsync gp0=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
@@ -178,7 +197,8 @@ func game_kernel {
 		}
 		a=P2X
 		wsync gp1=y=0 c+ hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
-		wsync hmove=a
+		wsync hmove=a pf0=pf1=pf2=a=0
+		cbg=a
 
 		// KERNEL 2B
 		tmp1=a=3

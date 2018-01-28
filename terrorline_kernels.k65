@@ -126,10 +126,12 @@ func kernel_terror_setup {
 	ns0=ns1=a=6
 	cp0=a=tmp3				// CP0
 	cp1=a					// CP1
-	a=anim a&1 =={
-		rp0+256=a *2 rp1=a	hp0=y a=y a+0xF0 hp1=a
-	}else{
-		*3 rp0=a *2 rp1=a	hp1=y a=y a+0x10 hp0=a
+	nocross {
+		a=anim a&1 =={
+			rp0+256=a *2 rp1=a	hp0=y a=y a+0xF0 hp1=a
+		}else{
+			*3 rp0=a *2 rp1=a	hp1=y a=y a+0x10 hp0=a
+		}
 	}
 }
 

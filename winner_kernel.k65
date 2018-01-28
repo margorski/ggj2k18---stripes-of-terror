@@ -47,6 +47,23 @@ inline draw_tvp_winner {
 	
 }
 
+func info_beeper {
+	ac0=a=4
+	af0=a=17
+	a=anim
+	a<< >={ a^anim }
+	a<<
+	a<< >={ a^anim }
+	a<< >={ a^anim }
+	a<< >={ a^anim }
+	a&0x80 !={
+		av0=a=6
+	}else{
+		av0=a=0
+	}
+}
+
+
 func winner_kernel {
 	infoscroll=a=176		// end message
 	cbg=a=0x00
@@ -54,6 +71,7 @@ func winner_kernel {
 	{
 	sync1
 		anim++
+		info_beeper
 		far kernel_terror_animate_win
 		a=inpt4 >=0 { goto .endfunc  }
 		a=inpt5 >=0 { goto .endfunc  }
@@ -68,6 +86,7 @@ func winner_kernel {
 		far kernel_terror
 	} always	// loop forever
 	.endfunc:
+	av0=a=0
 	sync2
 	sync3
 }

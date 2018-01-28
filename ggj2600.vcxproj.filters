@@ -50,6 +50,9 @@
     <None Include="winner_kernel.k65">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="city.k65">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="gfx\splash2.bmp">

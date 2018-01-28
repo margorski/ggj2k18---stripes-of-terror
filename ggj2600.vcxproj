@@ -29,6 +29,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemGroup>
     <None Include="!run.bat" />
+    <None Include="city.k65" />
     <None Include="game_kernel.k65" />
     <None Include="player.k65" />
     <None Include="splashscreen_kernel.k65" />
