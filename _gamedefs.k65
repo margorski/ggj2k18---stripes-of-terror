@@ -9,7 +9,7 @@
 //	Bx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Cx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Dx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
-//	Ex		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
+//	Ex		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	tmp4
 //	Fx		ptrF	ptrF	iscroll	-		-		-		-		-		STACK	STACK	STACK	STACK	STACK	STACK	STACK	STACK
 //
 
@@ -37,11 +37,14 @@ var ptrB[2] = 0x87;
 var	tmp1 = 0x89;
 var	tmp2 = 0x8A;
 var	tmp3 = 0x8F;
+var tmp4 = 0xEF
 var ptrC = 0x8B;
 var ptrD = 0x8D;
 var ptrE = 0x89;		// alias to tmp2:tmp1
 var ptrF = 0xF0;
 var infoscroll = 0xF2;
+var p1Energy = 0xF4
+var p2Energy = 0xF5
 
 var ShotPosA[MISSILE_COUNT] = 0x90;
 var ShotPosB[MISSILE_COUNT];
@@ -53,6 +56,10 @@ var ShotPosB[MISSILE_COUNT];
 
 var ShotVelA_W[MISSILE_COUNT] = [SCRAM_WRITE];
 var ShotVelB_W[MISSILE_COUNT];
+var Player1Energy_W;
+var Player2Energy_W;
 
 var ShotVelA_R[MISSILE_COUNT] = [SCRAM_READ];
 var ShotVelB_R[MISSILE_COUNT];
+var Player1Energy_R;
+var Player2Energy_R;

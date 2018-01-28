@@ -24,7 +24,7 @@ data sprite {
 	image "gfx/sprites" 40 16 8> 16v inv	// and again starting at (40,16)
 	image "gfx/sprites" 50 16 8> 16v inv	// and again starting at (50,16)
 }
-
+ 
 data SkyScraper0 { nocross	?	image "gfx/skyscraper"  3 [MISSILE_COUNT-4-1] 8< [MISSILE_COUNT-4]^	}
 data SkyScraper1 { nocross	?	image "gfx/skyscraper"  4 [MISSILE_COUNT-4-1] 8> [MISSILE_COUNT-4]^	}
 data SkyScraper2 { nocross	?	image "gfx/skyscraper" 19 [MISSILE_COUNT-4-1] 8< [MISSILE_COUNT-4]^	}
@@ -37,14 +37,15 @@ data SkyColors {
 	0xD0 0xB0 0xD0 0xD0 0xD0 0xD0 0xD0 0xD0
 	0xD0 0xB0 0xD0 0xD0 0xD0 0xD0 0xD0 0xD0 0xD0
 }
-
 func game_kernel {
 	
 	infoscroll=a=0
 
 	{
 	sync1
-		a=swchb a&0x01== { return }
+		a=Player1Energy_R a?176 >= { return }	
+		a=Player2Energy_R a?176 >= { return }
+		a=swchb a&0x01 == { return }
 		anim++
 		player1_input
 		player2_input
@@ -172,7 +173,10 @@ func game_kernel {
 			wsync gp0=a=(ptrA),y y--
 			wsync gp0=a=(ptrA),y y--
 		}>=0
-		a=CXPPMM <0 { cbg=a=anim ShotPosA+[MISSILE_COUNT-1]=ShotPosA+[MISSILE_COUNT-2]=ShotPosA+[MISSILE_COUNT-3]=ShotPosA+[MISSILE_COUNT-4]=a=0}
+		a=CXPPMM <0 {  
+			ShotPosA+[MISSILE_COUNT-1]=ShotPosA+[MISSILE_COUNT-2]=ShotPosA+[MISSILE_COUNT-3]=ShotPosA+[MISSILE_COUNT-4]=a=0	
+			x=Player1Energy_R x++ Player1Energy_W=x
+		}
 		
 		// KERNEL 3
 		x=[MISSILE_COUNT-4]
@@ -215,7 +219,10 @@ func game_kernel {
 			wsync gp1=a=(ptrB),y y++
 			y?16
 		}<
-		a=CXPPMM <0 { cbg=a=anim ShotPosB=ShotPosB+1=ShotPosB+2=ShotPosB+3=a=0}
+		a=CXPPMM <0 {  
+			ShotPosB=ShotPosB+1=ShotPosB+2=ShotPosB+3=a=0 
+			x=Player2Energy_R x++ Player2Energy_W=x
+		}
 		a=0
 		gp0=gp1=a
 

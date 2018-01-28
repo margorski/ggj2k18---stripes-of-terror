@@ -52,8 +52,8 @@ func splash_screen_kernel {
 	cpf=a=0x0f
 	{
 	sync1
-		a=inpt4 >=0 { goto .endfunc }
-		a=inpt5 >=0 { goto .endfunc }
+		a=inpt4 >=0 { return }
+		a=inpt5 >=0 { return }
 	sync2
 	sync3
 		a=tmp1
@@ -62,5 +62,4 @@ func splash_screen_kernel {
 		a=x a+2	x=a
 		>= { a=tmp1 a^0x01 tmp1=a x=0}
 	} always	// loop forever
-	.endfunc:
 }
