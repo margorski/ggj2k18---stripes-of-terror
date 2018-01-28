@@ -6,4 +6,8 @@
 	- fizyka graczy
 	- animacja graczy (pozycjonowanie anten)
 	- wizualna reakcja na trafienie
-	- gradient na graczu
+
+
+* Done:
+
+	+ gradient na graczu

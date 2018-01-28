@@ -37,6 +37,28 @@ data SkyColors {
 	0xD0 0xD0 0xB0 0xD0 0xD0 0xD0 0xB0 0xD0
 	0xD0 0xD0 0xD0 0xB0 0xD0 0xD0 0xD0 0xD0 0xD0
 }
+
+data PlayCol0 {
+	0x6E 0x6E
+	0x6C 0x6C
+	0x6A 0x6A
+	0x68 0x68
+	0x66 0x66
+	0x64 0x64
+	0x62 0x62
+	0x60 0x60
+}
+
+data PlayCol1 {
+	0xDE 0xDE
+	0xDC 0xDC
+	0xDA 0xDA
+	0xD8 0xD8
+	0xD6 0xD6
+	0xD4 0xD4 0xD4
+	0xD2 0xD2 0xD2
+}
+
 func game_kernel {
 	
 	infoscroll=a=0
@@ -160,13 +182,14 @@ func game_kernel {
 		tmp1=a=[MISSILE_COUNT-1]
 		CXCLR=a
 		y=15 {
+			cp0=a=PlayCol0,y
 			tmp2=a=(ptrA),y y--				// X = player graphics
 			x=tmp1 a=ShotPosA,x	tmp1--		// A = shot position
 			x=tmp2
 
 			c+ hmclr=a
 			wsync gp0=x gp1=x=0 x=a { a-30 }>= a<< a<< a<< a^0x70 hp1=a rp1=a
-			wsync hmove=a a=x !={ a=0x08 } gp1=a		gp0=a=(ptrA),y y--
+			wsync hmove=a a=x !={ a=0x08 } gp1=a		gp0=a=(ptrA),y y--  cp0=a=PlayCol0,y
 			wsync gp0=a=(ptrA),y y--
 			wsync gp0=a=(ptrA),y y--
 		}>=0
@@ -205,13 +228,14 @@ func game_kernel {
 		tmp1=a=3
 		CXCLR=a
 		y=0 {
+			cp1=a=PlayCol1,y
 			tmp2=a=(ptrB),y y++				// X = player graphics
 			x=tmp1 a=ShotPosB,x	tmp1--		// A = shot position
 			x=tmp2
 
 			c+ hmclr=a
 			wsync gp1=x gp0=x=0 x=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
-			wsync hmove=a a=x !={ a=0x08 } gp0=a			gp1=a=(ptrB),y y++
+			wsync hmove=a a=x !={ a=0x08 } gp0=a			gp1=a=(ptrB),y y++	cp1=a=PlayCol1,y
 			wsync gp1=a=(ptrB),y y++
 			wsync gp1=a=(ptrB),y y++
 			y?16

@@ -1,7 +1,9 @@
+
 // entry point block is declared with "main"
 main {
 	{
 		init
+		superchip_init
 		far winner_kernel
 		far splash_screen_kernel
 		game_kernel

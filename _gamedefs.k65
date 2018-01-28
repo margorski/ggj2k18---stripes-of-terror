@@ -54,6 +54,8 @@ var ShotPosB[MISSILE_COUNT];
 [ SCRAM_WRITE	= 0x1000 ]
 [ SCRAM_READ	= 0x1080 ]
 
+var SuperChipRam_W = [SCRAM_WRITE];
+
 var ShotVelA_W[MISSILE_COUNT] = [SCRAM_WRITE];
 var ShotVelB_W[MISSILE_COUNT];
 var Player1Energy_W;
@@ -63,3 +65,11 @@ var ShotVelA_R[MISSILE_COUNT] = [SCRAM_READ];
 var ShotVelB_R[MISSILE_COUNT];
 var Player1Energy_R;
 var Player2Energy_R;
+
+
+inline superchip_init {
+	a=0 x=127 {
+		SuperChipRam_W,x=a
+		x--
+	}>=0
+}
