@@ -1,11 +1,11 @@
 [ NOP_WAIT_AMOUNT=10, IMAGE_HEIGHT=220 ]
 
-data splash1_pf0_0 { align 256	image "gfx/splash1" 3 0 8< 220v }
-data splash1_pf1_0 { align 256	image "gfx/splash1" 4  0 8> 220v }
-data splash1_pf2_0 { align 256	image "gfx/splash1" 19 0 8< 220v }
-data splash1_pf0_1 { align 256	image "gfx/splash1" 23 0 8< 220v }
-data splash1_pf1_1 { align 256	image "gfx/splash1" 24 0 8> 220v }
-data splash1_pf2_1 { align 256	image "gfx/splash1" 39 0 8< 220v }
+data splash1_pf0_0 { align 256	image "gfx/splash1b" 3 0 8< 220v }
+data splash1_pf1_0 { align 256	image "gfx/splash1b" 4  0 8> 220v }
+data splash1_pf2_0 { align 256	image "gfx/splash1b" 19 0 8< 220v }
+data splash1_pf0_1 { align 256	image "gfx/splash1b" 23 0 8< 220v }
+data splash1_pf1_1 { align 256	image "gfx/splash1b" 24 0 8> 220v }
+data splash1_pf2_1 { align 256	image "gfx/splash1b" 39 0 8< 220v }
 
 data splash2_pf0_0 { align 256	image "gfx/splash2b" 3 0 8< 220v }
 data splash2_pf1_0 { align 256	image "gfx/splash2b" 4  0 8> 220v }
