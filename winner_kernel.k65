@@ -63,20 +63,26 @@ func info_beeper {
 	}
 }
 
-// Input: x - winning player index
+// Input: x - winning player index 
+// tmp3, tmp4 - used for storing previous players joystick value
 func winner_kernel {
 	Player1Energy_W=Player2Energy_W=a=0
 	infoscroll=a=176		// end message
 	cbg=a=0x00
 	cpf=a=0x0f
 	tmp5=x
+	tmp6=a=0x00
+	tmp7=a=0x00
 	{
 	sync1
 		anim++
 		info_beeper
 		far kernel_terror_animate_win
-		a=inpt4 >=0 { goto .endfunc  }
-		a=inpt5 >=0 { goto .endfunc  }
+		a=inpt4 a^0xff a&tmp6 >=0 { return }
+		a=inpt5 a^0xff a&tmp7 >=0 { return }
+		// save current state as previous state
+		tmp6=a=inpt4
+		tmp7=a=inpt5
 	sync2
 
 	sync3

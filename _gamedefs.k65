@@ -9,8 +9,8 @@
 //	Bx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Cx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Dx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
-//	Ex		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	s_seq	s_tep	s_tick	-		tmp5	tmp4
-//	Fx		ptrF	ptrF	iscroll	-		p1Energ	p2Energ	-		-		STACK	STACK	STACK	STACK	STACK	STACK	STACK	STACK
+//	Ex		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	s_seq	s_tep	s_tick	tmp6	tmp5	tmp4
+//	Fx		ptrF	ptrF	iscroll	tmp7	p1Energ	p2Energ	-		-		STACK	STACK	STACK	STACK	STACK	STACK	STACK	STACK
 //
 
 
@@ -39,6 +39,8 @@ var	tmp2 = 0x8A;
 var	tmp3 = 0x8F;
 var tmp4 = 0xEF;
 var tmp5 = 0xEE;
+var tmp6 = 0xED;
+var tmp7 = 0xF3;
 var ptrC = 0x8B;
 var ptrD = 0x8D;
 var ptrE = 0x89;		// alias to tmp2:tmp1

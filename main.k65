@@ -6,10 +6,10 @@ main {
 		init
 		superchip_init
 		far splash_screen_kernel
-		game_kernel
-		av0=av1=a=0		// mute audio
-
-		// 
-		far winner_kernel
+		{
+			game_kernel
+			av0=av1=a=0		// mute audio
+			far winner_kernel
+		} always
 	} always
 }
