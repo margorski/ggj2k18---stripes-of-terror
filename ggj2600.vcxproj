@@ -48,4 +48,7 @@
     <Image Include="gfx\splash2.bmp" />
     <Image Include="gfx\sprites.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
 </Project>

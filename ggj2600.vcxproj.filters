@@ -65,4 +65,7 @@
       <Filter>Data Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
 </Project>
