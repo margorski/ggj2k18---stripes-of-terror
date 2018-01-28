@@ -13,6 +13,7 @@
 
 	x fizyka graczy		- nie sprawdza się (za ciężko omijac pociski)
 
+	- efekty dźwiękowe wybuchu
 	+ chwila nieśmiertelności po trafieniu
 	+ wizualna reakcja na trafienie
 	+ blokada strzelania w ruchu

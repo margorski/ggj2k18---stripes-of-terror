@@ -205,7 +205,7 @@ func game_kernel {
 			ShotPosA+[MISSILE_COUNT-1]=ShotPosA+[MISSILE_COUNT-2]=ShotPosA+[MISSILE_COUNT-3]=ShotPosA+[MISSILE_COUNT-4]=a=0	
 			x=Player1Energy_R x++ x++ x++ x++ Player1Energy_W=x
 		}
-		
+	
 		// KERNEL 3
 		x=[MISSILE_COUNT-4]
 		nocross {		//	MISSILE_COUNT-4 .. 1
@@ -222,6 +222,7 @@ func game_kernel {
 			a=ShotPosB+[4-1],x		// last shot in this kernel:	4-1+1 = 4
 			wsync gp0=y=0 *2 hmclr=a { a-30 }>= a<< a<< a<< a^0x70 hp0=a rp0=a
 			wsync hmove=a a=ShotPosB+[4-1],x !={ a=0x08 } gp0=a
+			cp0=a=0x6F
 			x--
 			== goto .endloop
 			goto .loop
