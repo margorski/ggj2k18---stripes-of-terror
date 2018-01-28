@@ -7,26 +7,19 @@ data tvn_winner_pf0_1 { align 256	image "gfx/lisek0" 23 0 8< 220v }
 data tvn_winner_pf1_1 { align 256	image "gfx/lisek0" 24 0 8> 220v }
 data tvn_winner_pf2_1 { align 256	image "gfx/lisek0" 39 0 8< 220v }
 
-data tvn_winner_middle1_pf0_0 { align 256	image "gfx/lisek1" 3 118 8< 30v }
-data tvn_winner_middle1_pf1_0 { align 256	image "gfx/lisek1" 4  118 8> 30v }
-data tvn_winner_middle1_pf2_0 { align 256	image "gfx/lisek1" 19 118 8< 30v }
-data tvn_winner_middle1_pf0_1 { align 256	image "gfx/lisek1" 23 118 8< 30v }
-data tvn_winner_middle1_pf1_1 { align 256	image "gfx/lisek1" 24 118 8> 30v }
-data tvn_winner_middle1_pf2_1 { align 256	image "gfx/lisek1" 39 118 8< 30v }
+data tvn_winner_middle1_pf0_0 { nocross	image "gfx/lisek1" 3 118 8< 30v }
+data tvn_winner_middle1_pf1_0 { nocross	image "gfx/lisek1" 4  118 8> 30v }
+data tvn_winner_middle1_pf2_0 { nocross	image "gfx/lisek1" 19 118 8< 30v }
+data tvn_winner_middle1_pf0_1 { nocross	image "gfx/lisek1" 23 118 8< 30v }
+data tvn_winner_middle1_pf1_1 { nocross	image "gfx/lisek1" 24 118 8> 30v }
+data tvn_winner_middle1_pf2_1 { nocross	image "gfx/lisek1" 39 118 8< 30v }
 
-data tvn_winner_middle2_pf0_0 { align 256	image "gfx/lisek2" 3 118 8< 30v }
-data tvn_winner_middle2_pf1_0 { align 256	image "gfx/lisek2" 4  118 8> 30v }
-data tvn_winner_middle2_pf2_0 { align 256	image "gfx/lisek2" 19 118 8< 30v }
-data tvn_winner_middle2_pf0_1 { align 256	image "gfx/lisek2" 23 118 8< 30v }
-data tvn_winner_middle2_pf1_1 { align 256	image "gfx/lisek2" 24 118 8> 30v }
-data tvn_winner_middle2_pf2_1 { align 256	image "gfx/lisek2" 39 118 8< 30v }
-
-data tvp_winner_pf0_0 { align 256	image "gfx/splash2" 3 0 8< 220v }
-data tvp_winner_pf1_0 { align 256	image "gfx/splash2" 4  0 8> 220v }
-data tvp_winner_pf2_0 { align 256	image "gfx/splash2" 19 0 8< 220v }
-data tvp_winner_pf0_1 { align 256	image "gfx/splash2" 23 0 8< 220v }
-data tvp_winner_pf1_1 { align 256	image "gfx/splash2" 24 0 8> 220v }
-data tvp_winner_pf2_1 { align 256	image "gfx/splash2" 39 0 8< 220v }
+data tvn_winner_middle2_pf0_0 { nocross	image "gfx/lisek2" 3 118 8< 30v }
+data tvn_winner_middle2_pf1_0 { nocross	image "gfx/lisek2" 4  118 8> 30v }
+data tvn_winner_middle2_pf2_0 { nocross	image "gfx/lisek2" 19 118 8< 30v }
+data tvn_winner_middle2_pf0_1 { nocross	image "gfx/lisek2" 23 118 8< 30v }
+data tvn_winner_middle2_pf1_1 { nocross	image "gfx/lisek2" 24 118 8> 30v }
+data tvn_winner_middle2_pf2_1 { nocross	image "gfx/lisek2" 39 118 8< 30v }
 
 // Input: y - start line, tmp2 - end line
 func draw_tvn_winner_part {
@@ -43,54 +36,62 @@ func draw_tvn_winner_part {
 		y?tmp2
 	}<
 }
-
-// Input: y - start line, tmp2 - end line
-func draw_tvp_winner_part {
-	{
+func draw_tvn_winner_part1 {
+	y=0 {
 		wsync
-		pf0=a=splash2_pf0_0,y
-		pf1=a=splash2_pf1_0,y
-		pf2=a=splash2_pf2_0,y
+		pf0=a=tvn_winner_middle1_pf0_0,y
+		pf1=a=tvn_winner_middle1_pf1_0,y
+		pf2=a=tvn_winner_middle1_pf2_0,y
 		*[NOP_WAIT_AMOUNT]
-		pf0=a=splash2_pf0_1,y
-		pf1=a=splash2_pf1_1,y
-		pf2=a=splash2_pf2_1,y
+		pf0=a=tvn_winner_middle1_pf0_1,y
+		pf1=a=tvn_winner_middle1_pf1_1,y
+		pf2=a=tvn_winner_middle1_pf2_1,y
 		y++
-		y?tmp2
+		y?30
 	}<
-	pf0=pf1=pf2=a=0
+}
+func draw_tvn_winner_part2 {
+	y=0 {
+		wsync
+		pf0=a=tvn_winner_middle2_pf0_0,y
+		pf1=a=tvn_winner_middle2_pf1_0,y
+		pf2=a=tvn_winner_middle2_pf2_0,y
+		*[NOP_WAIT_AMOUNT]
+		pf0=a=tvn_winner_middle2_pf0_1,y
+		pf1=a=tvn_winner_middle2_pf1_1,y
+		pf2=a=tvn_winner_middle2_pf2_1,y
+		y++
+		y?30
+	}<
 }
 
 inline draw_tvn_winner {
 		y = 0 tmp2=a=118
 		draw_tvn_winner_part
 
-		y=tmp2 tmp2=a=148
-		draw_tvn_winner_part
+		a=anim a&4 =={
+			// middle
+			draw_tvn_winner_part1
+		}
+		else
+		{
+			a=anim a&8 =={
+				y=tmp2 tmp2=a=148
+				draw_tvn_winner_part
+			}
+			else
+			{
+				draw_tvn_winner_part2
+			}
+		}
 		
-		y=tmp2 tmp2=a=200
+		y=[118+30] tmp2=a=200
 		draw_tvn_winner_part
 		pf0=pf1=pf2=a=0
 }
 
-inline draw_tvp_winner {
-	y=0 {
-		wsync
-		pf0=a=tvp_winner_pf0_0,y
-		pf1=a=tvp_winner_pf1_0,y
-		pf2=a=tvp_winner_pf2_0,y
-		*[NOP_WAIT_AMOUNT]
-		pf0=a=tvp_winner_pf0_1,y
-		pf1=a=tvp_winner_pf1_1,y
-		pf2=a=tvp_winner_pf2_1,y
-		y++
-		y?200
-	}<
-	pf0=pf1=pf2=a=0
-	
-}
 
-func info_beeper {
+inline info_beeper {
 	ac0=a=4
 	af0=a=17
 	a=anim
@@ -108,7 +109,8 @@ func info_beeper {
 
 // Input: x - winning player index 
 // tmp3, tmp4 - used for storing previous players joystick value
-func winner_kernel {
+func winner_kernel_tvn {
+	x=1
 	Player1Energy_W=Player2Energy_W=a=0
 	infoscroll=a=176		// end message
 	cbg=a=0x00
@@ -131,10 +133,9 @@ func winner_kernel {
 	sync3
 		cpf=a=15
 		ctpf=a=0
-		x=tmp5
-		x?0 =={ draw_tvp_winner } 
-		else { draw_tvn_winner }
+		draw_tvn_winner
 
+		x=1
 		far kernel_terror_setup
 		far kernel_terror
 	} always	// loop forever

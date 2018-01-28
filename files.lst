@@ -9,6 +9,7 @@ player.k65					core
 terrorline_kernels.k65		terror
 splashscreen_kernel.k65		splash
 winner_kernel.k65			win_splash
+winner_kernel_tvp.k65		win_tvp
 game_kernel.k65				core
 main.k65					core
 

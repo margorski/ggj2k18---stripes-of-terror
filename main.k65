@@ -6,6 +6,7 @@ main {
 	{
 		init
 		superchip_init
+
 		far splash_screen_kernel
 		{
 			init
@@ -16,7 +17,8 @@ main {
 			sync2 sync3
 			
 			x?2 == goto .full_reset
-			far winner_kernel
+			x?1 =={ far winner_kernel_tvn }
+			else{ far winner_kernel_tvp }
 		} always
 	} always
 }

@@ -40,6 +40,7 @@
     <None Include="system_a2600.nut" />
     <None Include="terrorline_kernels.k65" />
     <None Include="winner_kernel.k65" />
+    <None Include="winner_kernel_tvp.k65" />
     <None Include="_defs.k65" />
     <None Include="files.lst" />
     <None Include="main.k65" />

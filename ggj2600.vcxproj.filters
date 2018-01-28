@@ -59,6 +59,9 @@
     <None Include="music_song_mini.k65">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="winner_kernel_tvp.k65">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="gfx\splash2.bmp">

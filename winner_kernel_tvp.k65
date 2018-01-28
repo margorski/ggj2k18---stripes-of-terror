@@ -1,0 +1,135 @@
+[ NOP_WAIT_AMOUNT=10, IMAGE_HEIGHT=220 ]
+
+
+// TVP:	137, 38 linii
+data tvp_winner_pf0_0 { align 256	image "gfx/kur0"  3 0 8< 220v }
+data tvp_winner_pf1_0 { align 256	image "gfx/kur0"  4  0 8> 220v }
+data tvp_winner_pf2_0 { align 256	image "gfx/kur0" 19 0 8< 220v }
+data tvp_winner_pf0_1 { align 256	image "gfx/kur0" 23 0 8< 220v }
+data tvp_winner_pf1_1 { align 256	image "gfx/kur0" 24 0 8> 220v }
+data tvp_winner_pf2_1 { align 256	image "gfx/kur0" 39 0 8< 220v }
+
+data tvp_winner_middle1_pf0_0 { nocross	image "gfx/kur1" 3  137 8< 38v }
+data tvp_winner_middle1_pf1_0 { nocross	image "gfx/kur1" 4  137 8> 38v }
+data tvp_winner_middle1_pf2_0 { nocross	image "gfx/kur1" 19 137 8< 38v }
+data tvp_winner_middle1_pf0_1 { nocross	image "gfx/kur1" 23 137 8< 38v }
+data tvp_winner_middle1_pf1_1 { nocross	image "gfx/kur1" 24 137 8> 38v }
+data tvp_winner_middle1_pf2_1 { nocross	image "gfx/kur1" 39 137 8< 38v }
+
+data tvp_winner_middle2_pf0_0 { nocross	image "gfx/kur2" 3  137 8< 38v }
+data tvp_winner_middle2_pf1_0 { nocross	image "gfx/kur2" 4  137 8> 38v }
+data tvp_winner_middle2_pf2_0 { nocross	image "gfx/kur2" 19 137 8< 38v }
+data tvp_winner_middle2_pf0_1 { nocross	image "gfx/kur2" 23 137 8< 38v }
+data tvp_winner_middle2_pf1_1 { nocross	image "gfx/kur2" 24 137 8> 38v }
+data tvp_winner_middle2_pf2_1 { nocross	image "gfx/kur2" 39 137 8< 38v }
+
+
+
+// Input: y - start line, tmp2 - end line
+func draw_tvp_winner_part {
+	{
+		wsync
+		pf0=a=tvp_winner_pf0_0,y
+		pf1=a=tvp_winner_pf1_0,y
+		pf2=a=tvp_winner_pf2_0,y
+		*[NOP_WAIT_AMOUNT]
+		pf0=a=tvp_winner_pf0_1,y
+		pf1=a=tvp_winner_pf1_1,y
+		pf2=a=tvp_winner_pf2_1,y
+		y++
+		y?tmp2
+	}<
+}
+func draw_tvp_winner_part1 {
+	y=0 {
+		wsync
+		pf0=a=tvp_winner_middle1_pf0_0,y
+		pf1=a=tvp_winner_middle1_pf1_0,y
+		pf2=a=tvp_winner_middle1_pf2_0,y
+		*[NOP_WAIT_AMOUNT]
+		pf0=a=tvp_winner_middle1_pf0_1,y
+		pf1=a=tvp_winner_middle1_pf1_1,y
+		pf2=a=tvp_winner_middle1_pf2_1,y
+		y++
+		y?38
+	}<
+}
+func draw_tvp_winner_part2 {
+	y=0 {
+		wsync
+		pf0=a=tvp_winner_middle2_pf0_0,y
+		pf1=a=tvp_winner_middle2_pf1_0,y
+		pf2=a=tvp_winner_middle2_pf2_0,y
+		*[NOP_WAIT_AMOUNT]
+		pf0=a=tvp_winner_middle2_pf0_1,y
+		pf1=a=tvp_winner_middle2_pf1_1,y
+		pf2=a=tvp_winner_middle2_pf2_1,y
+		y++
+		y?38
+	}<
+}
+
+inline draw_tvp_winner {
+		y = 0 tmp2=a=137
+		draw_tvp_winner_part
+
+		a=anim a&4 =={
+			// middle
+			draw_tvp_winner_part1
+		}
+		else
+		{
+			a=anim a&8 =={
+				y=137 tmp2=a=[137+38]
+				draw_tvp_winner_part
+			}
+			else
+			{
+				draw_tvp_winner_part2
+			}
+		}
+		
+		y=[137+38] tmp2=a=200
+		draw_tvp_winner_part
+		pf0=pf1=pf2=a=0
+}
+
+
+// Input: x - winning player index 
+// tmp3, tmp4 - used for storing previous players joystick value
+func winner_kernel_tvp {
+	x=0
+	Player1Energy_W=Player2Energy_W=a=0
+	infoscroll=a=176		// end message
+	cbg=a=0x00
+	cpf=a=0x0f
+	tmp5=x
+	tmp6=a=0x00
+	tmp7=a=0x00
+	{
+	sync1
+		anim++
+		info_beeper
+		far kernel_terror_animate_win
+		a=inpt4 a^0xff a&tmp6 <0 { return }		// IN=0  TMP=1		-> return			(   1/1 )
+		a=inpt5 a^0xff a&tmp7 <0 { return }
+		// save current state as previous state
+		tmp6=a=inpt4
+		tmp7=a=inpt5
+	sync2
+
+	sync3
+		cpf=a=15
+		ctpf=a=0
+		x=tmp5
+		draw_tvp_winner
+
+		x=0
+		far kernel_terror_setup
+		far kernel_terror
+	} always	// loop forever
+	.endfunc:
+	av0=a=0
+	sync2
+	sync3
+}

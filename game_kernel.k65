@@ -82,9 +82,7 @@ func game_kernel {
 		far song_player
 		a=Player1Energy_R a?176 >= { x=1 return }
 		a=Player2Energy_R a?176 >= { x=0 return }
-		// ZMIEN TO POTEM!L@#$J$!@:KL$J!KL@J$K
-		a=swchb a&0x01 == { x=1 return }
-		a=swchb a&0x02 == { x=0 return }
+		a=swchb a&0x01 == { x=2 return }
 		anim++
 		x=0	player_input
 		x=1 player_input
