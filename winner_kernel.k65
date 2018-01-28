@@ -63,12 +63,13 @@ func info_beeper {
 	}
 }
 
-
+// Input: x - winning player index
 func winner_kernel {
 	Player1Energy_W=Player2Energy_W=a=0
 	infoscroll=a=176		// end message
 	cbg=a=0x00
 	cpf=a=0x0f
+	tmp5=x
 	{
 	sync1
 		anim++
@@ -81,8 +82,10 @@ func winner_kernel {
 	sync3
 		cpf=a=15
 		ctpf=a=0
-		draw_tvn_winner
-		x=1
+		x=tmp5
+		x?0 =={ draw_tvp_winner } 
+		else { draw_tvn_winner }
+
 		far kernel_terror_setup
 		far kernel_terror
 	} always	// loop forever

@@ -4,8 +4,9 @@ main {
 	{
 		init
 		superchip_init
-		far winner_kernel
 		far splash_screen_kernel
 		game_kernel
+		// 
+		far winner_kernel
 	} always
 }

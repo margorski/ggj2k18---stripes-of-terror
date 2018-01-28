@@ -38,7 +38,7 @@ inline sync3	{ timwait wsync VBLANK=a=0 T1024T=a=18 }
 //inline sync2	{ timwait wsync VSYNC=a=2 wsync wsync a=0 wsync VSYNC=a TIM64T=a=44 }
 //inline sync3	{ timwait wsync VBLANK=a=0 TIM64T=a=231 }
 
-
+inline return_from_sync1 { sync2 sync3 return }
 
 
 var ns0=0x04,ns1;				// 00xx 0xxx   Number-Size player/missle 0/1
