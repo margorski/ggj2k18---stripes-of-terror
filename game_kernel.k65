@@ -139,11 +139,11 @@ func game_kernel {
 	
 		// KERNEL 1A
 		far kernel_terror
-		cp0=a=0x3F
-		cp1=a=0x4F
-		pf0=pf1=pf2=a=0xFF
 		cpf=a=0
-		cbg=a=0x0
+		cbg=a
+		cp0=a=0x6F
+		cp1=a=0xDF
+		pf0=pf1=pf2=a=0xFF
 
 		a=P1Frame a&0xF0
 		ptrA=a
