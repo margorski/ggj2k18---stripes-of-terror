@@ -31,6 +31,8 @@
     <None Include="!run.bat" />
     <None Include="city.k65" />
     <None Include="game_kernel.k65" />
+    <None Include="music_player_mini.k65" />
+    <None Include="music_song_mini.k65" />
     <None Include="player.k65" />
     <None Include="splashscreen_kernel.k65" />
     <None Include="kernel2_func.k65" />

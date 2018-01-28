@@ -1,13 +1,15 @@
 -system A2600
 -superchip
 
-_defs.k65				core
-_gamedefs.k65			core
-player.k65				core
-terrorline_kernels.k65	terror
-splashscreen_kernel.k65	splash
-winner_kernel.k65		win_splash
-game_kernel.k65			core
-main.k65				core
+_defs.k65					core
+_gamedefs.k65				core
+music_song_mini.k65			audio
+music_player_mini.k65		audio
+player.k65					core
+terrorline_kernels.k65		terror
+splashscreen_kernel.k65		splash
+winner_kernel.k65			win_splash
+game_kernel.k65				core
+main.k65					core
 
 -o ggj2600.bin

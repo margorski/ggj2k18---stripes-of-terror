@@ -9,7 +9,7 @@
 //	Bx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Cx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
 //	Dx		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos
-//	Ex		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	-		-		-		-		tmp5	tmp4
+//	Ex		ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	ShotPos	s_seq	s_tep	s_tick	-		tmp5	tmp4
 //	Fx		ptrF	ptrF	iscroll	-		p1Energ	p2Energ	-		-		STACK	STACK	STACK	STACK	STACK	STACK	STACK	STACK
 //
 
@@ -46,6 +46,11 @@ var ptrF = 0xF0;
 var infoscroll = 0xF2;
 var p1Energy = 0xF4;
 var p2Energy = 0xF5;
+
+var songpos_seq = 0xEA;
+var songpos_step = 0xEB;
+var songpos_tick = 0xEC;
+
 
 var ShotPosA[MISSILE_COUNT] = 0x90;
 var ShotPosB[MISSILE_COUNT];

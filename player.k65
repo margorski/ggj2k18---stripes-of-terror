@@ -114,16 +114,3 @@ func player_input {
 		}
 	}
 }
-
-
-func game_audio {
-
-	a=Player1Immunity_R
-	a?Player2Immunity_R
-	<{ a=Player2Immunity_R }
-	y=a		// Y = max immunity
-
-	ac1=a=8
-	a=y a^0xFF a>> a>> a>> af1=a
-	a=y a>> a>> a>> a>> av1=a
-}

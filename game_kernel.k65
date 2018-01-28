@@ -72,10 +72,14 @@ func game_kernel {
 	P1Frame=a=44
 	P2Frame=a=44
 	Player1Energy_W=Player2Energy_W=a=0
+	songpos_seq=a=0
+	songpos_step=a=0
+	songpos_tick=a=0
+
 	
 	{
 	sync1
-		game_audio
+		far song_player
 		a=Player1Energy_R a?176 >= { x=1 return }	
 		a=Player2Energy_R a?176 >= { x=0 return }
 		a=swchb a&0x01 == { return }
