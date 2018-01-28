@@ -74,8 +74,8 @@ func game_kernel {
 		a=Player2Energy_R a?176 >= { x=0 return }
 		a=swchb a&0x01 == { return }
 		anim++
-		player1_input
-		player2_input
+		x=0	player_input
+		x=1 player_input
 		far kernel_terror_animate
 
 		// move A
