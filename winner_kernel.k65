@@ -78,8 +78,8 @@ func winner_kernel {
 		anim++
 		info_beeper
 		far kernel_terror_animate_win
-		a=inpt4 a^0xff a&tmp6 >=0 { return }
-		a=inpt5 a^0xff a&tmp7 >=0 { return }
+		a=inpt4 a^0xff a&tmp6 <0 { return }		// IN=0  TMP=1		-> return			(   1/1 )
+		a=inpt5 a^0xff a&tmp7 <0 { return }
 		// save current state as previous state
 		tmp6=a=inpt4
 		tmp7=a=inpt5

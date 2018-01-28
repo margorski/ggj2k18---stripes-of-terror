@@ -2,13 +2,20 @@
 
 // entry point block is declared with "main"
 main {
+	.full_reset:
 	{
 		init
 		superchip_init
 		far splash_screen_kernel
 		{
+			init
+			superchip_init
 			game_kernel
+			
 			av0=av1=a=0		// mute audio
+			sync2 sync3
+			
+			x?2 == goto .full_reset
 			far winner_kernel
 		} always
 	} always
