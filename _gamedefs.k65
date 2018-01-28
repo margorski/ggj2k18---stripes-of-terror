@@ -51,7 +51,10 @@ var ShotPosA[MISSILE_COUNT] = 0x90;
 var ShotPosB[MISSILE_COUNT];
 
 
-// SuperChip variables
+
+
+// ================================ SuperChip variables ================================
+
 [ SCRAM_WRITE	= 0x1000 ]
 [ SCRAM_READ	= 0x1080 ]
 
@@ -59,13 +62,19 @@ var SuperChipRam_W = [SCRAM_WRITE];
 
 var ShotVelA_W[MISSILE_COUNT] = [SCRAM_WRITE];
 var ShotVelB_W[MISSILE_COUNT];
-var Player1Energy_W;
-var Player2Energy_W;
+var Player1Energy_W;		// 0 .. 11*16		(more -> worse)
+var Player2Energy_W;		//
+var Player1Immunity_W;
+var Player2Immunity_W;
 
 var ShotVelA_R[MISSILE_COUNT] = [SCRAM_READ];
 var ShotVelB_R[MISSILE_COUNT];
 var Player1Energy_R;
 var Player2Energy_R;
+var Player1Immunity_R;
+var Player2Immunity_R;
+
+
 
 
 inline superchip_init {

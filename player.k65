@@ -69,7 +69,8 @@ func player_input {
 		== { 
 			a=P1X,x
 			c+ a-PLAYER_MOVE_SPEED
-			< { a=0 }
+			<{ a=2 }
+			a?2 <{ a=2 }
 			P1X,x=a
 		}
 		// RIGHT
@@ -77,10 +78,44 @@ func player_input {
 		== { 
 			a=P1X,x
 			c- a+PLAYER_MOVE_SPEED
-			>= { a=0xFF }
+			>={ a=0xFC }
+			a?0xFC >={ a=0xFC }
 			P1X,x=a
 		}
 	}
 
 
+	// Energy logic
+	a=Player1Immunity_R,x !={
+		c+ a-2
+		Player1Immunity_W,x=a
+
+		a=Player1Energy_R,x a&0xF0 Player1Energy_W,x=a		// immune -> clear all partial hits
+	}
+	else
+	{
+		a=Player1Energy_R,x a&0x0F !={
+			a?12 >={
+				// take full hit
+				a=Player1Energy_R,x
+				a&0xF0 c- a+0x10
+				Player1Energy_W,x=a
+				Player1Immunity_W,x=a=0xFC
+			}
+			else
+			{
+				// slowly recover from partial hits
+				a=anim a&15 =={
+					a=Player1Energy_R,x
+					c+ a-1
+					Player1Energy_W,x=a
+				}
+			}
+		}
+	}
+}
+
+
+func game_audio {
+	
 }
