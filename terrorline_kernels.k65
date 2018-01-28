@@ -13,6 +13,14 @@ data striptvn2 { address 0xF800		image "gen/flowtext" [42*8*2] 11 8> 6^		tiles 8
 data striptvn3 { address 0xF900		image "gen/flowtext" [42*8*3] 11 8> 6^		tiles 8 0 41		}
 data striptvn4 { address 0xFA00		image "gen/flowtext" [42*8*4] 11 8> 6^		tiles 8 0 41		}
 
+data EnergyLookupPF1 {
+	0b00000111 0b00000011  0b00000001  0b00000000  0b00000000  0b00000000  0b00000000  0b00000000  0b00000000  0b00000000  0b00000000
+}
+
+data EnergyLookupPF2 {
+	0b11111111 0b11111111  0b11111111  0b11111111 0b11111110  0b11111100  0b11111000  0b11110000  0b11100000  0b11000000  0b10000000 
+}
+
 [ FAST_SCROLL = 0 ]
 
 
@@ -30,6 +38,8 @@ data strip_lock {
 	&>striptvn3
 	&>striptvn4
 }
+
+
 
 
 inline skip_tiles_1 {
@@ -84,14 +94,25 @@ inline _setup_terror_scroll {
 //	INFOSCROLL	IIIIIIII
 //	ANIM		---AAA-S
 
+// Input: a - energy value Output: x - index for energy lookup table
+inline get_energy_xindex {
+	a>> a>> a>> a>> x=a
+}
+
 func kernel_terror_setup {
 	a=strip_lock		// lock data sections
 	a=anim a&1 y=a		// preload shutter bit
-	x?0 =={
+	x?0 =={ 
+		a=Player1Energy_R 
+		get_energy_xindex
+		tmp4=x
 		x=&>striptvp0
 		cpf=a=0x60
 		a=0x0F
 	}else{
+		a=Player2Energy_R 
+		get_energy_xindex
+		tmp4=x
 		x=&>striptvn0
 		cpf=a=0xD0
 		a=0x0F
@@ -149,9 +170,11 @@ func kernel_terror {
 
 	wsync hmove=a ctpf=a=1
 	wsync cbg=a=tmp3					// CPF / CBG
-	pf0=a=0b00000000
-	pf1=a=0b00000111
-	pf2=a=0b11111111
+	x=tmp4
+	pf0=a=0b00000000	
+	pf1=a=EnergyLookupPF1, x
+	pf2=a=EnergyLookupPF2, x
+	//
 	wsync	y=5
 	nocross {
 		wsync

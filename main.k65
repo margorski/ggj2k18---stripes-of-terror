@@ -7,7 +7,7 @@ main {
 	P1Frame=a=32
 	P2Frame=a
 	//infoscroll=a=0
-
+	Player1Energy_W=Player2Energy_W=a=0
 	//{
 	//sync1
 	//	x=0 {
